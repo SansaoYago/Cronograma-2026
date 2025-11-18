@@ -6,6 +6,7 @@
     "priority": "FREEZING",
     "periodicity": "ANUAL"
   },
+
   {
     "date": "2026-01-01",
     "company": "TBRA",
@@ -13,13 +14,23 @@
     "priority": "FREEZING",
     "periodicity": "FREEZING"
   },
+
   {
     "date": "2026-01-01",
-    "company": "B2B",
-    "description": "Freezing HUAWEI",
+    "company": "TBRA",
+    "description": "FREZZING FIM DE ANO",
     "priority": "FREEZING",
     "periodicity": "FREEZING"
   },
+
+  {
+    "date": "2026-01-01",
+    "company": "B2B",
+    "description": "FREEZING HUAWEI",
+    "priority": "FREEZING",
+    "periodicity": "FREEZING"
+  },
+
   {
     "date": "2026-01-01",
     "company": "ENGEMON",
@@ -27,39 +38,70 @@
     "priority": "LOW",
     "periodicity": "TRIMESTRAL"
   },
+
   {
-    "date": "2026-01-08",
-    "company": "Segurança e Cia.",
-    "description": "Inspeção e troca de baterias dos sensores de presença.",
-    "priority": "LOW",
-    "periodicity": "SEMESTRAL"
+    "date": "2026-01-02",
+    "company": "TBRA",
+    "description": "FREZZING FIM DE ANO",
+    "priority": "FREEZING",
+    "periodicity": "FREEZING"
   },
+
+  {
+    "date": "2026-01-02",
+    "company": "TBRA",
+    "description": "FREZZING FATURAMENTO",
+    "priority": "FREEZING",
+    "periodicity": "FREEZING"
+  },
+
+  {
+    "date": "2026-01-02",
+    "company": "B2B",
+    "description": "FREEZING HUAWEI",
+    "priority": "FREEZING",
+    "periodicity": "FREEZING"
+  },
+
+  {
+    "date": "2026-01-02",
+    "company": "ENGEMON",
+    "description": "Sistema de Incêndio | Sistema de Automação | 08:00 - 18:00",
+    "priority": "LOW",
+    "periodicity": "MENSAL"
+  },
+  
+  {
+    "date": "2026-01-03",
+    "company": "TBRA",
+    "description": "FREZZING FIM DE ANO",
+    "priority": "FREEZING",
+    "periodicity": "FREEZING"
+  },
+
+  {
+    "date": "2026-01-03",
+    "company": "TBRA",
+    "description": "TBRA - Janela Restritiva Início às 05h00 de Sábado",
+    "priority": "FREEZING",
+    "periodicity": "FREEZING"
+  },
+
+  {
+    "date": "2026-01-03",
+    "company": "B2B",
+    "description": "FREEZING HUAWEI",
+    "priority": "FREEZING",
+    "periodicity": "FREEZING"
+  },
+
+
   {
     "date": "2026-02-14",
     "company": "FERIADO",
     "description": "Feriado Carnaval",
     "priority": "FREEZING",
     "periodicity": "MENSAL"
-  },
-  {
-    "date": "2026-03-01",
-    "company": "TBRA",
-    "description": "Auditoria de segurança de rotina.",
-    "priority": "FREEZING",
-    "periodicity": "QUADRIMESTRAL"
-  },
-  {
-    "date": "2026-03-15",
-    "company": "B2B",
-    "description": "Configuração de rede.",
-    "priority": "FREEZING",
-    "periodicity": "TRIMESTRAL"
-  },
-  {
-    "date": "2026-04-20",
-    "company": "HUAWEI",
-    "description": "Teste de hardware.",
-    "priority": "FREEZING",
-    "periodicity": "BIMESTRAL"
   }
+
 ]
