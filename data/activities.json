@@ -2,21 +2,43 @@
   {
     "date": "2026-01-01",
     "company": "FERIADO",
-    "description": "ANO NOVO"
+    "description": "ANO NOVO",
+    "priority": "FREEZING",
+    "periodicity": "ANUAL"
   },
   {
     "date": "2026-01-08",
     "company": "Segurança e Cia.",
-    "description": "Inspeção e troca de baterias dos sensores de presença."
+    "description": "Inspeção e troca de baterias dos sensores de presença.",
+    "priority": "LOW",
+    "periodicity": "SEMESTRAL"
   },
   {
     "date": "2026-02-14",
     "company": "Elevadores Rápidos S.A.",
-    "description": "Manutenção mensal obrigatória dos elevadores."
+    "description": "Manutenção mensal obrigatória dos elevadores.",
+    "priority": "MEDIUM",
+    "periodicity": "MENSAL"
   },
   {
     "date": "2026-03-01",
-    "company": "Jardinagem e Paisagismo",
-    "description": "Poda geral e adubação de todos os canteiros externos."
+    "company": "TBRA",
+    "description": "Auditoria de segurança de rotina.",
+    "priority": "FREEZING",
+    "periodicity": "QUADRIMESTRAL"
+  },
+  {
+    "date": "2026-03-15",
+    "company": "B2B",
+    "description": "Configuração de rede.",
+    "priority": "FREEZING",
+    "periodicity": "TRIMESTRAL"
+  },
+  {
+    "date": "2026-04-20",
+    "company": "HUAWEI",
+    "description": "Teste de hardware.",
+    "priority": "FREEZING",
+    "periodicity": "BIMESTRAL"
   }
 ]

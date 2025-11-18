@@ -164,7 +164,8 @@ main {
     border: 1px solid #ccc;
     padding: 10px;
     margin-bottom: 10px;
-    border-left: 5px solid #007bff;
+    /* LINHA ALTERADA: Antes era 'border-left: 5px solid #007bff;' */
+    border-left: 5px solid #ccc; /* Cor de fallback neutra/cinza */
 }
 
 .activity-item h4 {
@@ -186,4 +187,103 @@ main {
 /* Garante que o número do dia também seja vermelho */
 .day.holiday .day-number {
     color: red;
+}
+
+/* --- NOVAS CLASSES DE DESTAQUE PARA PRIORIDADE (FREEZING) --- */
+
+/* Ferido (já existe, mas garantindo a classe) */
+.day.holiday {
+    color: red;
+    font-weight: bold;
+    background-color: #ffebeb;
+    border-left: 5px solid red;
+}
+
+/* TBRA (Laranja) */
+.day.freezing-tbra {
+    background-color: #ffcc99; /* Laranja Claro */
+    border-left: 5px solid orange; /* Laranja Mais Escuro */
+}
+
+.day.freezing-tbra .day-number {
+    color: #E26B0A; /* Laranja forte no número */
+}
+
+.day.freezing-tbra:hover:not(.empty) {
+    background-color: #ffb366;
+}
+
+/* B2B e HUAWEI (Cinza) */
+.day.freezing-b2b-huawei {
+    background-color: #e6e6e6; /* Cinza Claro */
+    border-left: 5px solid #BFBFBF; /* Cinza Mais Escuro */
+}
+
+.day.freezing-b2b-huawei .day-number {
+    color: #7f7f7f; /* Cinza escuro no número */
+}
+
+.day.freezing-b2b-huawei:hover:not(.empty) {
+    background-color: #cccccc;
+}
+
+/* --- NOVAS CLASSES PARA PERIODICIDADE NO MODAL --- */
+
+/* Tag de Periodicidade dentro do Modal */
+.periodicidade-tag {
+    font-size: 0.8em;
+    padding: 3px 6px;
+    border-radius: 4px;
+    margin-left: 10px;
+    font-weight: bold;
+    color: #333;
+    display: inline-block;
+    border: 1px solid #333;
+}
+
+.p-MENSAL {
+    background-color: #DA9694; /* Vermelho-salmão */
+    border-color: #DA9694;
+}
+.p-BIMESTRAL {
+    background-color: #E26B0A; /* Laranja Forte */
+    border-color: #E26B0A;
+}
+.p-TRIMESTRAL {
+    background-color: #FFFF00; /* Amarelo */
+    border-color: #FFFF00;
+}
+.p-QUADRIMESTRAL {
+    background-color: #95B3D7; /* Azul Claro */
+    border-color: #95B3D7;
+}
+.p-SEMESTRAL {
+    background-color: #00B050; /* Verde Claro */
+    border-color: #00B050;
+}
+.p-ANUAL {
+    background-color: #FF0000; /* Vermelho Vivo */
+    color: white; /* Texto branco para contraste */
+    border-color: #FF0000;
+}
+
+/* --- NOVAS CLASSES PARA COR DA FAIXA LATERAL (Borda esquerda) --- */
+
+.activity-item.border-p-MENSAL {
+    border-left-color: #DA9694;
+}
+.activity-item.border-p-BIMESTRAL {
+    border-left-color: #E26B0A;
+}
+.activity-item.border-p-TRIMESTRAL {
+    border-left-color: #FFFF00;
+}
+.activity-item.border-p-QUADRIMESTRAL {
+    border-left-color: #95B3D7;
+}
+.activity-item.border-p-SEMESTRAL {
+    border-left-color: #00B050;
+}
+.activity-item.border-p-ANUAL {
+    border-left-color: #FF0000;
 }

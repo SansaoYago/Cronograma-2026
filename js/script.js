@@ -54,26 +54,35 @@ function renderCalendar(year, month) {
         // Adiciona o número do dia
         dayElement.innerHTML = `<span class="day-number">${day}</span>`;
 
-        // Verifica se há atividades para este dia
+       // Verifica se há atividades para este dia
         const dailyActivities = activities.filter(a => a.date === dateString);
 
-        // NOVO: Verifica se o dia é um feriado
+        // NOVO: Verifica se o dia é FREEZING (Inclui FERIADO)
+        const isFreezing = dailyActivities.some(a => a.priority === "FREEZING");
         const isHoliday = dailyActivities.some(a => a.company === "FERIADO");
 
-        if (isHoliday) {
-            // APLICA O DESTAQUE EM VERMELHO (usa o CSS que definimos)
-            dayElement.classList.add('holiday');
-            // Se for feriado, NÃO queremos mostrar o indicador de atividade padrão (opcional)
-        }
-        
-        if (dailyActivities.length > 0 && !isHoliday) { // Não mostra indicador de atividade se for feriado
-            // Se houver atividades (e não for feriado), adiciona um indicador visual
+        if (isFreezing) {
+            // APLICA O DESTAQUE COM BASE NA EMPRESA/FERIADO (FREEZING)
+            dayElement.classList.add('has-activity'); // Mantém a classe de base de atividade
+
+            if (isHoliday) {
+                // Feridos em Vermelho
+                dayElement.classList.add('holiday');
+            } else if (dailyActivities.some(a => a.company === "TBRA")) {
+                // TBRA em Laranja
+                dayElement.classList.add('freezing-tbra');
+            } else if (dailyActivities.some(a => a.company === "B2B" || a.company === "HUAWEI")) {
+                // B2B e HUAWEI em Cinza
+                dayElement.classList.add('freezing-b2b-huawei');
+            }
+            // Se for Freezing, não mostra o indicador de atividade padrão (texto pequeno)
+
+        } else if (dailyActivities.length > 0) {
+            // Para atividades NÃO FREEZING, mostra o indicador de contagem (comportamento original)
             const indicator = document.createElement('span');
             indicator.classList.add('activity-indicator');
             indicator.textContent = `${dailyActivities.length} Ativ.`;
             dayElement.appendChild(indicator);
-            
-            // Adiciona a classe para destaque de dias com atividade
             dayElement.classList.add('has-activity');
         }
 
@@ -108,14 +117,14 @@ async function loadActivities() {
  * Abre o modal para visualizar as atividades do dia
  */
 function openActivityModal(dateString, dailyActivities, isHoliday) {
-    // Se for feriado, vamos mudar o título do modal para destacar
+    // ... (restante da função é mantido)
     modalDateDisplay.textContent = dateString;
     activitiesList.innerHTML = ''; // Limpa o conteúdo anterior
     
     // Filtra o feriado, para que não apareça apenas a palavra "FERIADO" no item de atividade
     const filteredActivities = dailyActivities.filter(a => a.company !== "FERIADO");
     
-    let modalTitle = isHoliday ? `FERIADO: ${dateString}` : `Detalhes do Dia: ${dateString}`;
+    let modalTitle = isHoliday ? `FREEZING (Feriado): ${dateString}` : `Detalhes do Dia: ${dateString}`;
     document.querySelector('#activity-modal h3').textContent = modalTitle;
     
     if (filteredActivities.length === 0 && !isHoliday) {
@@ -126,10 +135,17 @@ function openActivityModal(dateString, dailyActivities, isHoliday) {
         }
         
         filteredActivities.forEach(activity => {
+            // CRIA A TAG DE PERIODICIDADE
+            const periodicityTag = `<span class="periodicidade-tag p-${activity.periodicity}">${activity.periodicity}</span>`;
+
             const item = document.createElement('div');
             item.classList.add('activity-item');
+            
+            // NOVO: Adiciona a classe que define a cor da borda lateral
+            item.classList.add(`border-p-${activity.periodicity}`); 
+            
             item.innerHTML = `
-                <h4>${activity.company}</h4>
+                <h4>${activity.company} ${periodicityTag}</h4>
                 <p><strong>Serviço:</strong> ${activity.description}</p>
             `;
             activitiesList.appendChild(item);
