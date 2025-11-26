@@ -1,7 +1,5 @@
 [
-  {
-    "Comentário": "----------JANEIRO----------"
-  },
+  
   {
     "date": "2026-01-01",
     "company": "FERIADO",
@@ -99,20 +97,11 @@
   },
 
   {
-    "Comentário": "----------FEVEREIRO----------"
-  },
-
-
-  {
     "date": "2026-02-14",
     "company": "FERIADO",
     "description": "Feriado Carnaval",
     "priority": "FREEZING",
     "periodicity": "MENSAL"
-  },
-
-  {
-    "Comentário": "----------MARÇO----------"
   }
 
 ]
