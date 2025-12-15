@@ -61,7 +61,6 @@ function renderCalendar(year, month) {
         const isFreezing = dailyActivities.some(a => a.priority === "FREEZING");
         
         // VERIFICAÇÃO DE ALTA PRIORIDADE VISUAL (FERIADO OU FREEZING COMERCIAL)
-        // Ambos herdam a classe CSS 'holiday'
         const isHighPriorityFreezingVisual = dailyActivities.some(a => 
             a.company === "FERIADO" || a.company === "FREEZING COMERCIAL"
         );
@@ -70,7 +69,6 @@ function renderCalendar(year, month) {
 
 
         if (isFreezing) {
-            // APLICA O DESTAQUE COM BASE NA EMPRESA/FERIADO (FREEZING)
             dayElement.classList.add('has-activity'); 
 
             // 1. MAIOR PRIORIDADE VISUAL: FERIADO OU FREEZING COMERCIAL
@@ -93,7 +91,6 @@ function renderCalendar(year, month) {
         } else if (dailyActivities.length > 0) {
             // Lógica para atividades gerais (NÃO FREEZING)
             
-            // Adiciona a classe de cor suave (green-água)
             dayElement.classList.add('general-activity'); 
 
             // Adiciona o indicador de atividade
@@ -139,14 +136,13 @@ function openActivityModal(dateString, dailyActivities, isHighPriorityFreezingVi
     activitiesList.innerHTML = ''; // Limpa o conteúdo anterior
     
     const isHoliday = dailyActivities.some(a => a.company === "FERIADO");
-    const isCommercialFreezing = dailyActivities.some(a => a.company === "FREEZING COMERCIAL");
     
     // Filtramos apenas o FERIADO para não aparecer duas vezes no aviso e na lista
     const filteredActivities = dailyActivities.filter(a => a.company !== "FERIADO"); 
 
     let modalTitle;
     
-    // ⭐️ NOVO: Se for feriado, o título é a descrição do feriado + data
+    // Se for feriado, o título é a descrição do feriado + data
     if (isHoliday) {
         const holidayDescription = dailyActivities.find(a => a.company === "FERIADO")?.description || 'Feriado';
         modalTitle = `${holidayDescription}: ${dateString}`;
@@ -189,9 +185,8 @@ function openActivityModal(dateString, dailyActivities, isHighPriorityFreezingVi
         filteredActivities.forEach(activity => {
             // CRIA A TAGS DE ESTILO
             const periodicityTag = `<span class="periodicidade-tag p-${activity.periodicity}">${activity.periodicity}</span>`;
-            const priorityText = activity.priority || "NORMAL"; 
-            const priorityTag = `<span class="priority-tag pr-${priorityText}">${priorityText}</span>`;
-
+            
+            // >>> TAGS DE PRIORIDADE REMOVIDAS DAQUI <<<
 
             // >>> INÍCIO DA LÓGICA DE COR DA BORDA (Engemon) <<<
             let borderClass = `border-p-${activity.periodicity}`; // Padrão: usa a periodicidade
@@ -230,9 +225,9 @@ function openActivityModal(dateString, dailyActivities, isHighPriorityFreezingVi
             // 2. ADICIONA A CLASSE QUE DEFINE A COR DA BORDA LATERAL
             item.classList.add(borderClass); 
             
-            // CONTEÚDO FINAL DO CARD (Sem o campo 'requester')
+            // CONTEÚDO FINAL DO CARD: Removed a tag de prioridade aqui.
             item.innerHTML = `
-                <h4>${priorityTag} ${activity.company} ${periodicityTag}</h4>
+                <h4>${activity.company} ${periodicityTag}</h4>
                 <p><strong>Serviço:</strong> ${activity.description}</p>
             `;
 
