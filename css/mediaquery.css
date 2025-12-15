@@ -1,0 +1,63 @@
+/* ========================================================== */
+/* --- RESPONSIVIDADE (MEDIA QUERIES) --- */
+/* ========================================================== */
+
+@media (max-width: 768px) {
+    /* Ajustes Gerais para o Conteúdo Principal */
+    main {
+        margin: 10px;
+        padding: 10px;
+    }
+
+    /* Ajuste no Cabeçalho do Calendário (Controles) */
+    .calendar-controls {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    /* Reduz o espaçamento e fonte para os dias da semana */
+    .weekdays span {
+        padding: 5px 2px;
+        font-size: 0.8em;
+    }
+    
+    /* Reduz a altura mínima dos dias e o número do dia */
+    .day {
+        min-height: 70px; /* Reduz a altura mínima do card do dia */
+        padding: 5px;
+    }
+    
+    .day-number {
+        font-size: 1em; /* Reduz o tamanho do número */
+    }
+
+    /* Ajuste para o indicador de atividade (a tag amarela/verde) */
+    .activity-indicator {
+        font-size: 0.7em;
+        padding: 2px 3px;
+    }
+
+    /* Modal - Ajusta o tamanho para ocupar mais espaço na vertical */
+    .modal-content {
+        width: 95%; /* Ocupa quase toda a largura */
+        margin: 10% auto; /* Move o modal um pouco mais para cima */
+        max-height: 90vh; /* Limita a altura máxima do modal */
+        overflow-y: auto; /* Permite rolar o conteúdo do modal se for muito longo */
+    }
+    
+    /* Ajuste de Fonte e Espaçamento nos itens do modal */
+    .activity-item h4 {
+        font-size: 0.9em;
+        margin-bottom: 5px;
+    }
+
+    .activity-item p {
+        font-size: 0.8em;
+    }
+
+    /* Ajuste para as tags de prioridade e periodicidade no modal */
+    .periodicidade-tag, .priority-tag {
+        font-size: 0.7em;
+        padding: 2px 4px;
+    }
+}
