@@ -395,7 +395,7 @@ main {
 
     /* MODAL - CORREÇÃO DE VAZAMENTO LATERAL */
     .modal-content {
-        width: 95%; 
+        width: 85%; 
         margin: 5% auto; 
         max-width: none; 
         max-height: 90vh; 
