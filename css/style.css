@@ -247,28 +247,28 @@ main {
 
 }
 .p-FREEZING {
-    background-color: #fec0fe; /* Azul Marinho/Índigo - Cor forte para Freezing */
+    background-color: #fec0fe; 
     border-color: #fec0fe;
 }
 
 .p-MENSAL {
-    background-color: #DA9694; /* Vermelho-salmão */
+    background-color: #DA9694; 
     border-color: #DA9694;
 }
 .p-BIMESTRAL {
-    background-color: #E26B0A; /* Laranja Forte */
+    background-color: #E26B0A; 
     border-color: #E26B0A;
 }
 .p-TRIMESTRAL {
-    background-color: #FFFF00; /* Amarelo */
+    background-color: #FFFF00; 
     border-color: #FFFF00;
 }
 .p-QUADRIMESTRAL {
-    background-color: #95B3D7; /* Azul Claro */
+    background-color: #95B3D7; 
     border-color: #95B3D7;
 }
 .p-SEMESTRAL {
-    background-color: #00B050; /* Verde Claro */
+    background-color: #00B050; 
     border-color: #00B050;
 }
 .p-ANUAL {
@@ -345,6 +345,7 @@ main {
 .activity-item.order-gr-TBRA_NGIN,
 .activity-item.order-gr-TBRA_RELEASE {
     order: 2;
+    border-left-color: orange;
 }
 
 /* VENDORS (Order 3) */
@@ -367,3 +368,40 @@ main {
     order: 99; 
 }
 
+/* --- NOVA CLASSE DE DESTAQUE PARA ATIVIDADES GERAIS (NÃO FREEZING/FERIADO) --- */
+.day.general-activity {
+    /* Cor de fundo suave (ex: Verde-água claro) */
+    background-color: #d4edda; 
+    
+    /* Borda de destaque lateral (ex: Verde escuro) */
+    border-left: 5px solid #155724; 
+}
+
+/* Garante que o número do dia também tenha um bom contraste */
+.day.general-activity .day-number {
+    color: #155724; 
+}
+
+/* Cor de fundo ao passar o mouse */
+.day.general-activity:hover:not(.empty) {
+    background-color: #c3e6cb;
+}
+
+/* --- NOVA CLASSE DE DESTAQUE PARA ATIVIDADES GERAIS (NÃO FREEZING/FERIADO) --- */
+.day.general-activity {
+    /* Cor de fundo suave (ex: Verde-água claro) */
+    background-color: #d4edda; 
+    
+    /* Borda de destaque lateral (ex: Verde escuro) */
+    border-left: 5px solid #155724; 
+}
+
+/* Garante que o número do dia também tenha um bom contraste */
+.day.general-activity .day-number {
+    color: #155724; 
+}
+
+/* Cor de fundo ao passar o mouse */
+.day.general-activity:hover:not(.empty) {
+    background-color: #c3e6cb;
+}

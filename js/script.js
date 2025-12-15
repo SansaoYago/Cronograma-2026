@@ -27,7 +27,7 @@ function renderCalendar(year, month) {
     daysGrid.innerHTML = ''; // Limpa o calendário anterior
 
     // 1. Atualiza o cabeçalho
-    currentMonthYearHeader.textContent = `${monthNames[month]}`;
+    currentMonthYearHeader.textContent = `${monthNames[month]} ${year}`; 
 
     // 2. Cálculo dos dias
     const firstDayOfMonth = new Date(year, month, 1);
@@ -54,31 +54,49 @@ function renderCalendar(year, month) {
         // Adiciona o número do dia
         dayElement.innerHTML = `<span class="day-number">${day}</span>`;
 
-       // Verifica se há atividades para este dia
+        // Verifica se há atividades para este dia
         const dailyActivities = activities.filter(a => a.date === dateString);
 
-        // NOVO: Verifica se o dia é FREEZING (Inclui FERIADO)
+        // Verifica se o dia é FREEZING
         const isFreezing = dailyActivities.some(a => a.priority === "FREEZING");
+        
+        // VERIFICAÇÃO DE ALTA PRIORIDADE VISUAL (FERIADO OU FREEZING COMERCIAL)
+        // Ambos herdam a classe CSS 'holiday'
+        const isHighPriorityFreezingVisual = dailyActivities.some(a => 
+            a.company === "FERIADO" || a.company === "FREEZING COMERCIAL"
+        );
+        
         const isHoliday = dailyActivities.some(a => a.company === "FERIADO");
+
 
         if (isFreezing) {
             // APLICA O DESTAQUE COM BASE NA EMPRESA/FERIADO (FREEZING)
-            dayElement.classList.add('has-activity'); // Mantém a classe de base de atividade
+            dayElement.classList.add('has-activity'); 
 
-            if (isHoliday) {
-                // Feridos em Rosa
-                dayElement.classList.add('holiday');
-            } else if (dailyActivities.some(a => a.company === "TBRA")) {
-                // TBRA em Laranja
+            // 1. MAIOR PRIORIDADE VISUAL: FERIADO OU FREEZING COMERCIAL
+            if (isHighPriorityFreezingVisual) {
+                dayElement.classList.add('holiday'); 
+            } 
+            // 2. SEGUNDA PRIORIDADE: TBRA RELEASE ou TBRA NGIN
+            else if (dailyActivities.some(a => a.company_group === "TBRA RELEASE" || a.company_group === "TBRA NGIN")) {
+                dayElement.classList.add('freezing-tbra-release-ngin');
+            } 
+            // 3. TERCEIRA PRIORIDADE: TBRA GERAL
+            else if (dailyActivities.some(a => a.company === "TBRA")) {
                 dayElement.classList.add('freezing-tbra');
-            } else if (dailyActivities.some(a => a.company === "B2B" || a.company === "HUAWEI")) {
-                // B2B e HUAWEI em Cinza
+            } 
+            // 4. QUARTA PRIORIDADE: B2B/HUAWEI
+            else if (dailyActivities.some(a => a.company === "B2B" || a.company === "HUAWEI")) {
                 dayElement.classList.add('freezing-b2b-huawei');
             }
-            // Se for Freezing, não mostra o indicador de atividade padrão (texto pequeno)
 
         } else if (dailyActivities.length > 0) {
-            // Para atividades NÃO FREEZING, mostra o indicador de contagem (comportamento original)
+            // Lógica para atividades gerais (NÃO FREEZING)
+            
+            // Adiciona a classe de cor suave (green-água)
+            dayElement.classList.add('general-activity'); 
+
+            // Adiciona o indicador de atividade
             const indicator = document.createElement('span');
             indicator.classList.add('activity-indicator');
             indicator.textContent = `${dailyActivities.length} Ativ.`;
@@ -88,7 +106,7 @@ function renderCalendar(year, month) {
 
 
         // Adiciona o evento de clique para abrir o modal
-        dayElement.addEventListener('click', () => openActivityModal(dateString, dailyActivities, isHoliday));
+        dayElement.addEventListener('click', () => openActivityModal(dateString, dailyActivities, isHighPriorityFreezingVisual));
 
         daysGrid.appendChild(dayElement);
     }
@@ -103,7 +121,6 @@ async function loadActivities() {
     try {
         const response = await fetch('./data/activities.json');
         if (!response.ok) {
-            // Se o arquivo não for encontrado ou der erro
             console.warn("Arquivo activities.json não encontrado ou vazio. Iniciando com dados vazios.");
             return;
         }
@@ -116,44 +133,116 @@ async function loadActivities() {
 /**
  * Abre o modal para visualizar as atividades do dia
  */
-function openActivityModal(dateString, dailyActivities, isHoliday) {
-    // ... (restante da função é mantido)
+function openActivityModal(dateString, dailyActivities, isHighPriorityFreezingVisual) {
+    
     modalDateDisplay.textContent = dateString;
     activitiesList.innerHTML = ''; // Limpa o conteúdo anterior
     
-    // Filtra o feriado, para que não apareça apenas a palavra "FERIADO" no item de atividade
-    const filteredActivities = dailyActivities.filter(a => a.company !== "FERIADO");
+    const isHoliday = dailyActivities.some(a => a.company === "FERIADO");
+    const isCommercialFreezing = dailyActivities.some(a => a.company === "FREEZING COMERCIAL");
     
-    let modalTitle = isHoliday ? `FREEZING (Feriado): ${dateString}` : `Detalhes do Dia: ${dateString}`;
+    // Filtramos apenas o FERIADO para não aparecer duas vezes no aviso e na lista
+    const filteredActivities = dailyActivities.filter(a => a.company !== "FERIADO"); 
+
+    let modalTitle;
+    
+    // ⭐️ NOVO: Se for feriado, o título é a descrição do feriado + data
+    if (isHoliday) {
+        const holidayDescription = dailyActivities.find(a => a.company === "FERIADO")?.description || 'Feriado';
+        modalTitle = `${holidayDescription}: ${dateString}`;
+        
+    // Se for Freezing Comercial, ou qualquer outro dia, o título é genérico
+    } else {
+        modalTitle = `Detalhes do Dia: ${dateString}`;
+    }
+
     document.querySelector('#activity-modal h3').textContent = modalTitle;
     
-    if (filteredActivities.length === 0 && !isHoliday) {
+    // Verifica se deve exibir "Nenhuma atividade"
+    if (filteredActivities.length === 0 && !isHighPriorityFreezingVisual) {
         activitiesList.innerHTML = '<p class="no-activity">Nenhuma atividade agendada neste dia.</p>';
     } else {
+        
+        // AVISO ESPECIAL: SOMENTE PARA FERIADO (a mensagem de aviso em negrito)
         if (isHoliday) {
             activitiesList.innerHTML += `<p style="color: red; font-weight: bold;">⚠️ É um feriado nacional! ${dailyActivities.find(a => a.company === "FERIADO")?.description || ''}</p><hr>`;
         }
         
+        // ORDENAÇÃO: Ordenar as atividades antes de renderizar
+        filteredActivities.sort((a, b) => {
+            const groupA = a.company_group || "Z_DEFAULT"; 
+            const groupB = b.company_group || "Z_DEFAULT";
+            
+            if (groupA < groupB) return -1;
+            if (groupA > groupB) return 1;
+            
+            // Critério secundário: Ordena por empresa
+            const companyA = a.company || "";
+            const companyB = b.company || "";
+            if (companyA < companyB) return -1;
+            if (companyA > companyB) return 1;
+            
+            return 0;
+        });
+        // FIM DA ORDENAÇÃO
+
         filteredActivities.forEach(activity => {
-            // CRIA A TAG DE PERIODICIDADE
+            // CRIA A TAGS DE ESTILO
             const periodicityTag = `<span class="periodicidade-tag p-${activity.periodicity}">${activity.periodicity}</span>`;
+            const priorityText = activity.priority || "NORMAL"; 
+            const priorityTag = `<span class="priority-tag pr-${priorityText}">${priorityText}</span>`;
+
+
+            // >>> INÍCIO DA LÓGICA DE COR DA BORDA (Engemon) <<<
+            let borderClass = `border-p-${activity.periodicity}`; // Padrão: usa a periodicidade
+
+            if (activity.company && activity.company.toUpperCase() === "ENGEMON") {
+                
+                const descNormalizada = activity.description
+                    .normalize("NFD") 
+                    .replace(/[\u0300-\u036f]/g, "") 
+                    .toUpperCase(); 
+                
+                // Subgrupo 1: Incêndio/Hidrante
+                if (descNormalizada.includes("INCENDIO") || descNormalizada.includes("HIDRANTE")) {
+                    borderClass = "border-engemon-incendio"; 
+                
+                // Subgrupo 2: Automação/Sensores
+                } else if (descNormalizada.includes("AUTOMACAO") || descNormalizada.includes("SENSORES")) {
+                    borderClass = "border-engemon-automacao"; 
+                } 
+            }
+            // >>> FIM DA LÓGICA DE COR DA BORDA <<<
+
+
+            // Lógica do groupKey para ORDENAÇÃO
+            const groupKey = activity.company_group 
+                ? activity.company_group.toUpperCase().replace(/[^A-Z0-9]+/g, '_').replace(/^_|_$/g, '')
+                : "DEFAULT";
+
 
             const item = document.createElement('div');
             item.classList.add('activity-item');
             
-            // NOVO: Adiciona a classe que define a cor da borda lateral
-            item.classList.add(`border-p-${activity.periodicity}`); 
+            // 1. ADICIONA A CLASSE DE ORDENAÇÃO CSS
+            item.classList.add(`order-gr-${groupKey}`); 
+
+            // 2. ADICIONA A CLASSE QUE DEFINE A COR DA BORDA LATERAL
+            item.classList.add(borderClass); 
             
+            // CONTEÚDO FINAL DO CARD (Sem o campo 'requester')
             item.innerHTML = `
-                <h4>${activity.company} ${periodicityTag}</h4>
+                <h4>${priorityTag} ${activity.company} ${periodicityTag}</h4>
                 <p><strong>Serviço:</strong> ${activity.description}</p>
             `;
+
             activitiesList.appendChild(item);
         });
     }
 
     activityModal.style.display = 'block';
 }
+
 
 /**
  * Função para fechar o modal.

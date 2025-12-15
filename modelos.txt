@@ -3,8 +3,8 @@
     "company": "",
     "description": "",
     "priority": "",
-    "periodicity": ""
-    "company_group": "FERIADO" // Campo adicionado
+    "periodicity": "",
+    "company_group": ""
   },
 
 

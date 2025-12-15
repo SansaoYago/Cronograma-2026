@@ -83,6 +83,9 @@ function renderCalendar(year, month) {
             indicator.textContent = `${dailyActivities.length} Ativ.`;
             dayElement.appendChild(indicator);
             dayElement.classList.add('has-activity');
+            
+            // *** NOVA LINHA: Adiciona a cor para atividades gerais ***
+            dayElement.classList.add('general-activity'); 
         }
 
 
@@ -238,3 +241,4 @@ async function init() {
 }
 
 init();
+
