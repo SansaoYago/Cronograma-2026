@@ -39,7 +39,7 @@
 
     /* Modal - Ajusta o tamanho para ocupar mais espaço na vertical */
     .modal-content {
-        width: 90%; 
+        width: 80%; 
         margin: 10% auto; 
         max-width: none; /* Remove qualquer limite de largura que possa estar forçando o vazamento */
         max-height: 90vh;
