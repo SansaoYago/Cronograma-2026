@@ -2,7 +2,6 @@
 /* --- 1. CONFIGURAÇÕES BÁSICAS E ESTRUTURA GERAL --- */
 /* ========================================================== */
 
-/* Importação da Fonte e Reset Básico */
 body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
@@ -11,7 +10,6 @@ body {
     color: #333;
 }
 
-/* Cabeçalho Principal */
 header {
     background-color: #007bff;
     color: white;
@@ -20,14 +18,16 @@ header {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Container Principal */
 main {
     max-width: 1200px;
     margin: 30px auto;
     padding: 20px;
 }
 
-/* Controles de Navegação */
+/* ========================================================== */
+/* --- 2. CONTROLES DO CALENDÁRIO --- */
+/* ========================================================== */
+
 .calendar-controls {
     display: flex;
     justify-content: space-between;
@@ -54,11 +54,11 @@ main {
 }
 
 /* ========================================================== */
-/* --- 2. LAYOUT E ESTILO DOS DIAS DO CALENDÁRIO --- */
+/* --- 3. LAYOUT DO CALENDÁRIO --- */
 /* ========================================================== */
 
-/* Estrutura do Calendário (Grid) */
-.weekdays, .days-grid {
+.weekdays,
+.days-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     text-align: center;
@@ -71,14 +71,13 @@ main {
     border: 1px solid #ddd;
 }
 
-/* Estilo Básico do Dia - ATENÇÃO: text-align: center para centralizar o conteúdo! */
 .day {
     min-height: 100px;
     padding: 10px;
     border: 1px solid #ddd;
     border-top: none;
     cursor: pointer;
-    text-align: center; /* Centraliza o conteúdo horizontalmente */
+    text-align: center;
     background-color: #fff;
     transition: background-color 0.2s;
 }
@@ -92,7 +91,7 @@ main {
     font-size: 1.2em;
     margin-bottom: 5px;
     color: #007bff;
-    display: block; /* Garante que o número ocupe toda a largura */
+    display: block;
 }
 
 .empty {
@@ -101,114 +100,66 @@ main {
     border: none;
 }
 
-/* Indicador de Atividade (Contador) - Centralizado */
+/* Indicador de quantidade de atividades */
 .activity-indicator {
     background-color: #ffc107;
     color: #333;
     font-size: 0.8em;
     padding: 3px 5px;
     border-radius: 3px;
-    display: block; 
-    width: fit-content; 
-    margin: 2px auto 0 auto; /* Centraliza horizontalmente e dá margem superior */
+    display: block;
+    width: fit-content;
+    margin: 2px auto 0 auto;
 }
 
-
 /* ========================================================== */
-/* --- 3. ESTILOS DE PRIORIDADE (FREEZING, GERAL) NO CALENDÁRIO --- */
+/* --- 4. PRIORIDADES VISUAIS DO CALENDÁRIO --- */
 /* ========================================================== */
 
-/* 3.1. HIGH PRIORITY (FERIADO / FREEZING COMERCIAL) */
 .day.holiday {
-    background-color: #ffebeb; 
-    border-left: 5px solid #fec0fe; 
+    background-color: #ffebeb;
+    border-left: 5px solid #fec0fe;
 }
 
 .day.holiday .day-number {
-    color: red; 
+    color: red;
 }
 
-.day.holiday:hover:not(.empty) {
-    background-color: #ffcccc;
-}
-
-
-/* 3.2. FREEZING TBRA RELEASE / NGIN (AZUL) */
 .day.freezing-tbra-release-ngin {
-    background-color: #c9e6f3; 
-    border-left: 5px solid #0099cc; 
-}
-.day.freezing-tbra-release-ngin .day-number {
-    color: #0077aa; 
+    background-color: #c9e6f3;
+    border-left: 5px solid #0099cc;
 }
 
-/* 3.3. FREEZING TBRA GERAL (Laranja) */
 .day.freezing-tbra {
-    background-color: #ffcc99; 
-    border-left: 5px solid orange; 
-}
-.day.freezing-tbra .day-number {
-    color: #E26B0A; 
+    background-color: #ffcc99;
+    border-left: 5px solid orange;
 }
 
-/* 3.4. FREEZING B2B e HUAWEI (Cinza) */
 .day.freezing-b2b-huawei {
-    background-color: #e6e6e6; 
-    border-left: 5px solid #BFBFBF; 
+    background-color: #e6e6e6;
+    border-left: 5px solid #bfbfbf;
 }
 
-.day.freezing-b2b-huawei .day-number {
-    color: #7f7f7f; 
-}
-
-/* 3.5. ATIVIDADES GERAIS (Verde) */
 .day.general-activity {
-    background-color: #d4edda; 
-    border-left: 5px solid #155724; 
+    background-color: #d4edda;
+    border-left: 5px solid #155724;
 }
-
-.day.general-activity .day-number {
-    color: #155724; 
-}
-
-/* 🚨 CORREÇÃO DE ESPECIFICIDADE: Garante que o indicador da EQUIPE tenha SEMPRE o fundo amarelo
-   e a cor de texto escura, corrigindo a sobrescrição indesejada. */
-div .on-call-indicator {
-    font-size: 0.75em;
-    font-weight: bold;
-    color: #333 !important; /* Cor de texto ESCURA para todos */
-    background-color: #ffc107 !important; /* Fundo amarelo para todos */
-    padding: 3px 5px;
-    border-radius: 4px;
-    margin: 4px auto 0 auto; 
-    display: block;
-    width: fit-content;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
-}
-
-/* ❌ REGRA REMOVIDA: A regra específica .day.holiday .on-call-indicator não é mais necessária, 
-   pois queremos que a cor de texto volte ao padrão #333 em todos os casos. */
-
 
 /* ========================================================== */
-/* --- 4. MODAL E ITENS DE ATIVIDADE --- */
+/* --- 5. MODAL --- */
 /* ========================================================== */
 
 .modal {
-    display: none; 
+    display: none;
     position: fixed;
     z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.4); 
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal-content {
     background-color: #fff;
-    margin: 15% auto; 
+    margin: 10% auto;
     padding: 25px;
     border: 1px solid #888;
     width: 80%;
@@ -218,10 +169,8 @@ div .on-call-indicator {
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
-/* Garante quebra de linha em títulos longos do modal */
 .modal-content h3 {
     word-wrap: break-word;
-    overflow-wrap: break-word;
 }
 
 .close-btn {
@@ -229,203 +178,157 @@ div .on-call-indicator {
     float: right;
     font-size: 28px;
     font-weight: bold;
-}
-
-.close-btn:hover,
-.close-btn:focus {
-    color: #000;
-    text-decoration: none;
     cursor: pointer;
 }
 
-.note {
-    font-size: 0.9em;
-    margin-top: 20px;
-    padding: 10px;
-    border-left: 5px solid #ffc107;
-    background-color: #fffbe6;
+.close-btn:hover {
+    color: #000;
 }
 
-/* Container de atividades (Flexbox para ordenação) */
+/* ========================================================== */
+/* --- 6. BLOCO DE EQUIPE NO MODAL (NOVO) --- */
+/* ========================================================== */
+
+.on-call-modal {
+    background-color: #e9f5ff;
+    border-left: 5px solid #007bff;
+    padding: 10px 12px;
+    font-weight: bold;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+/* ========================================================== */
+/* --- 7. LISTA DE ATIVIDADES NO MODAL --- */
+/* ========================================================== */
+
 #activities-list {
     margin-top: 15px;
     display: flex;
-    flex-direction: column; 
-    gap: 10px; 
+    flex-direction: column;
+    gap: 10px;
 }
 
 .activity-item {
     border: 1px solid #ccc;
     padding: 10px;
-    margin-bottom: 0; 
-    border-left: 5px solid #ccc; /* Cor de fallback neutra/cinza */
-}
-
-/* Garante quebra de linha no conteúdo do card */
-.activity-item h4, .activity-item p {
-    word-wrap: break-word;
-    overflow-wrap: break-word;
+    border-left: 5px solid #ccc;
 }
 
 .activity-item h4 {
-    margin-top: 0;
+    margin: 0 0 5px 0;
     color: #007bff;
 }
 
-/* ========================================================== */
-/* --- 5. ORDENAÇÃO E CORES NO MODAL --- */
-/* ========================================================== */
-
-/* 5.1. CORES DA BORDA LATERAL (Periodicidade e Engemon) */
-
-/* Cores de Borda por Periodicidade */
-.activity-item.border-p-B2B-HUAWEI { border-left-color: #BFBFBF; }
-.activity-item.border-p-FREEZING { border-left-color: #fec0fe; } 
-.activity-item.border-p-MENSAL { border-left-color: #DA9694; }
-.activity-item.border-p-BIMESTRAL { border-left-color: #E26B0A; }
-.activity-item.border-p-TRIMESTRAL { border-left-color: #FFFF00; }
-.activity-item.border-p-QUADRIMESTRAL { border-left-color: #95B3D7; }
-.activity-item.border-p-SEMESTRAL { border-left-color: #00B050; }
-.activity-item.border-p-ANUAL { border-left-color: #FF0000; }
-
-/* Cores de Borda ENGEMON (Lógica especial do JS) */
-.activity-item.border-engemon-incendio {
-    border-left-color: #92D050; 
-}
-.activity-item.border-engemon-automacao {
-    border-left-color: #E8950E; 
+.activity-item p {
+    margin: 0;
+    word-wrap: break-word;
 }
 
-/* 5.2. ESTILO DAS TAGS (Periodicidade) */
+/* ========================================================== */
+/* --- 8. CORES DE BORDA (PERIODICIDADE / ENGEMON) --- */
+/* ========================================================== */
+
+.activity-item.border-p-B2B-HUAWEI { border-left-color: #bfbfbf; }
+.activity-item.border-p-FREEZING { border-left-color: #fec0fe; }
+.activity-item.border-p-MENSAL { border-left-color: #da9694; }
+.activity-item.border-p-BIMESTRAL { border-left-color: #e26b0a; }
+.activity-item.border-p-TRIMESTRAL { border-left-color: #ffff00; }
+.activity-item.border-p-QUADRIMESTRAL { border-left-color: #95b3d7; }
+.activity-item.border-p-SEMESTRAL { border-left-color: #00b050; }
+.activity-item.border-p-ANUAL { border-left-color: #ff0000; }
+
+.activity-item.border-engemon-incendio { border-left-color: #92d050; }
+.activity-item.border-engemon-automacao { border-left-color: #e8950e; }
+
+/* ========================================================== */
+/* --- 9. TAGS DE PERIODICIDADE --- */
+/* ========================================================== */
 
 .periodicidade-tag {
-    font-size: 0.8em;
+    font-size: 0.75em;
     padding: 3px 6px;
     border-radius: 4px;
-    margin-left: 10px;
+    margin-left: 8px;
     font-weight: bold;
-    color: #333;
-    display: inline-block;
     border: 1px solid #333;
 }
 
-/* Cores de Fundo das Tags de Periodicidade */
-.p-B2B-HUAWEI { background-color: #BFBFBF; border-color: #BFBFBF; }
-.p-FREEZING { background-color: #fec0fe; border-color: #fec0fe; }
-.p-MENSAL { background-color: #DA9694; border-color: #DA9694; }
-.p-BIMESTRAL { background-color: #E26B0A; border-color: #E26B0A; }
-.p-TRIMESTRAL { background-color: #FFFF00; border-color: #FFFF00; }
-.p-QUADRIMESTRAL { background-color: #95B3D7; border-color: #95B3D7; }
-.p-SEMESTRAL { background-color: #00B050; border-color: #00B050; }
-.p-ANUAL { 
-    background-color: #FF0000; 
-    color: white; 
-    border-color: #FF0000;
+.p-B2B-HUAWEI { background-color: #bfbfbf; }
+.p-FREEZING { background-color: #fec0fe; }
+.p-MENSAL { background-color: #da9694; }
+.p-BIMESTRAL { background-color: #e26b0a; }
+.p-TRIMESTRAL { background-color: #ffff00; }
+.p-QUADRIMESTRAL { background-color: #95b3d7; }
+.p-SEMESTRAL { background-color: #00b050; }
+.p-ANUAL {
+    background-color: #ff0000;
+    color: white;
 }
 
-/* 5.3. CLASSES DE ORDENAÇÃO (Order: 0 é o mais importante/primeiro) */
-
-.activity-item.order-gr-TBRA_FREEZING { order: 0; }
-.activity-item.order-gr-B2B_HUAWEI_FREEZING { order: 1; }
-.activity-item.order-gr-TBRA_NGIN,
-.activity-item.order-gr-TBRA_RELEASE {
-    order: 2;
-    border-left-color: orange; 
+.pdf-clickable {
+    cursor: pointer;
+    width: 35px;
 }
-
-.activity-item.order-gr-VENDORS { order: 3; }
-.activity-item.order-gr-ENGEMON { order: 4; }
-.activity-item.order-gr-FERIADO { order: 98; }
-.activity-item.order-gr-DEFAULT { order: 99; } 
 
 
 /* ========================================================== */
-/* --- 6. RESPONSIVIDADE (MEDIA QUERIES) --- */
+/* --- 10. RESPONSIVIDADE --- */
 /* ========================================================== */
 
 @media (max-width: 768px) {
-    /* Ajustes Gerais para o Conteúdo Principal */
+
     main {
         margin: 10px;
         padding: 10px;
     }
 
-    /* Ajuste no Cabeçalho do Calendário (Controles) */
     .calendar-controls {
         flex-direction: column;
         gap: 10px;
-        padding: 10px;
     }
-    
+
     .calendar-controls button {
         width: 100%;
     }
 
-    /* Reduz o espaçamento e fonte para os dias da semana */
     .weekdays span {
-        padding: 5px 2px;
         font-size: 0.75em;
+        padding: 5px 2px;
     }
 
-    /* Reduz a altura mínima dos dias e o número do dia */
     .day {
-        min-height: 55px; 
+        min-height: 55px;
         padding: 4px;
     }
-    
+
     .day-number {
-        font-size: 0.9em; 
+        font-size: 0.9em;
     }
 
-    /* Ajuste para o indicador de atividade */
     .activity-indicator {
         font-size: 0.6em;
-        padding: 1px 2px;
-        margin: 1px auto 0 auto; /* Ajuste a margem para telas menores */
-    }
-    
-    /* Ajuste para o indicador de equipe */
-    .on-call-indicator {
-        font-size: 0.6em;
         padding: 2px 3px;
-        margin: 2px auto 0 auto;
     }
 
-    /* MODAL - CORREÇÃO DE VAZAMENTO LATERAL */
     .modal-content {
-        width: 95%; 
-        margin: 5% auto; 
-        max-width: none; 
-        max-height: 90vh; 
-        overflow-y: auto; 
+        width: 85%;
+        margin: 5% auto;
+        max-height: 90vh;
+        overflow-y: auto;
         padding: 15px;
     }
-    
-    /* Garante a quebra de linha no título do modal */
-    .modal-content h3 {
-        font-size: 1.1em;
-        word-wrap: break-word;
-        overflow-wrap: break-word;
-    }
 
-    /* Ajuste de Fonte e Espaçamento nos itens do modal */
-    .activity-item {
-        padding: 8px;
-    }
-    
     .activity-item h4 {
         font-size: 0.85em;
-        margin-bottom: 5px;
-        word-wrap: break-word; 
     }
 
     .activity-item p {
-        font-size: 0.75em;
+        font-size: 0.7em;
     }
 
-    /* Ajuste para as tags de periodicidade no modal */
     .periodicidade-tag {
-        font-size: 0.65em;
+        font-size: 0.6em;
         padding: 2px 3px;
     }
 }

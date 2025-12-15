@@ -8,6 +8,12 @@
 
   {
     "date": "2026-01-01",
+    "on_call_day": "Equipe C",
+    "on_call_night": "Equipe D"
+  },
+
+  {
+    "date": "2026-01-01",
     "company": "FREEZING COMERCIAL",
     "description": "TBRA - FREEZING FIM DE ANO",
     "periodicity": "FREEZING",
@@ -32,6 +38,12 @@
   },
 
   {"JANEIRO": "___________________________________________________DIA 02________________________________________________________________"},
+
+  {
+    "date": "2026-01-02",
+    "on_call_day": "Equipe A",
+    "on_call_night": "Equipe B"
+  },
 
   {
     "date": "2026-01-02",

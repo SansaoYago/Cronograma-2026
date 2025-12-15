@@ -1,252 +1,232 @@
+// ==========================================================
 // VARIÁVEIS DE ESTADO
+// ==========================================================
 let currentYear = 2026;
-let currentMonth = 0; // 0 = Janeiro, 11 = Dezembro
-let activities = []; // Array que armazenará os dados do JSON
+let currentMonth = 0; // Janeiro
+let activities = [];
+let dayTeams = {};
+let currentModalActivities = [];
+let currentModalDate = '';
 
+// ==========================================================
 // VARIÁVEIS DO DOM
+// ==========================================================
 const daysGrid = document.getElementById('days-grid');
 const currentMonthYearHeader = document.getElementById('current-month-year');
 const prevMonthBtn = document.getElementById('prev-month');
 const nextMonthBtn = document.getElementById('next-month');
+
 const activityModal = document.getElementById('activity-modal');
 const closeModalBtn = document.getElementById('close-modal');
 const modalDateDisplay = document.getElementById('modal-date-display');
 const activitiesList = document.getElementById('activities-list');
+const modalTeamInfo = document.getElementById('modal-team-info');
+const exportPdfTrigger = document.getElementById('export-pdf');
 
+// ==========================================================
+// CONSTANTES
+// ==========================================================
 const monthNames = [
     "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
     "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
 ];
 
-// --- FUNÇÕES DE LÓGICA DO CALENDÁRIO ---
+const COUNTABLE_PERIODICITIES = [
+    'MENSAL',
+    'BIMESTRAL',
+    'TRIMESTRAL',
+    'QUADRIMESTRAL',
+    'SEMESTRAL',
+    'ANUAL'
+];
 
-/**
- * Função principal para desenhar o calendário na tela.
- */
+const dayClassMap = {
+    'TBRA_FREEZING': 'freezing-tbra',
+    'B2B_HUAWEI_FREEZING': 'freezing-b2b-huawei',
+    'TBRA_RELEASE': 'freezing-tbra-release-ngin',
+    'ENGEMON': 'general-activity',
+    'VENDORS': 'general-activity',
+    'FERIADO': 'holiday'
+};
+
+// ==========================================================
+// FUNÇÕES AUXILIARES
+// ==========================================================
+function getCurrentShift() {
+    const hour = new Date().getHours();
+    return (hour >= 6 && hour < 18) ? 'day' : 'night';
+}
+
+// ==========================================================
+// CARREGAMENTO DO JSON
+// ==========================================================
+async function loadActivities() {
+    try {
+        const response = await fetch('./data/activities.json');
+        if (!response.ok) return;
+
+        const rawData = await response.json();
+
+        activities = [];
+        dayTeams = {};
+
+        rawData.forEach(item => {
+
+            // BLOCO DE EQUIPE
+            if (
+                item.date &&
+                !item.company &&
+                (item.on_call_day || item.on_call_night)
+            ) {
+                dayTeams[item.date] = {
+                    day: item.on_call_day || null,
+                    night: item.on_call_night || null
+                };
+                return;
+            }
+
+            // BLOCO DE ATIVIDADE
+            if (item.date && item.company) {
+                activities.push(item);
+            }
+        });
+
+    } catch (error) {
+        console.error("Erro ao carregar o JSON:", error);
+    }
+}
+
+// ==========================================================
+// RENDERIZAÇÃO DO CALENDÁRIO
+// ==========================================================
 function renderCalendar(year, month) {
-    daysGrid.innerHTML = ''; // Limpa o calendário anterior
+    daysGrid.innerHTML = '';
+    currentMonthYearHeader.textContent = `${monthNames[month]} ${year}`;
 
-    // 1. Atualiza o cabeçalho
-    currentMonthYearHeader.textContent = `${monthNames[month]} ${year}`; 
-
-    // 2. Cálculo dos dias
     const firstDayOfMonth = new Date(year, month, 1);
     const lastDayOfMonth = new Date(year, month + 1, 0);
     const daysInMonth = lastDayOfMonth.getDate();
+    const startDayOfWeek = firstDayOfMonth.getDay();
 
-    // Dia da semana em que o mês começa (0=Dom, 6=Sáb)
-    let startDayOfWeek = firstDayOfMonth.getDay();
-
-    // 3. Dias vazios (Preenchimento inicial para alinhar o primeiro dia)
     for (let i = 0; i < startDayOfWeek; i++) {
         const emptyDay = document.createElement('div');
         emptyDay.classList.add('day', 'empty');
         daysGrid.appendChild(emptyDay);
     }
 
-    // 4. Criação dos Dias do Mês
     for (let day = 1; day <= daysInMonth; day++) {
         const dateString = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+
         const dayElement = document.createElement('div');
         dayElement.classList.add('day');
-        dayElement.dataset.date = dateString; // Armazena a data
-
-        // Adiciona o número do dia
+        dayElement.dataset.date = dateString;
         dayElement.innerHTML = `<span class="day-number">${day}</span>`;
 
-        // Verifica se há atividades para este dia
         const dailyActivities = activities.filter(a => a.date === dateString);
 
-        // 🆕 NOVO: Lista de periodicidades que DEVEM ser contadas
-        const countablePeriodicities = [
-            "MENSAL", "BIMESTRAL", "TRIMESTRAL", "QUADRIMESTRAL", "SEMESTRAL", "ANUAL"
-        ];
-
-        // Filtra as atividades para contagem (somente as periódicas definidas)
-        const countableActivities = dailyActivities.filter(a => 
-            countablePeriodicities.includes(a.periodicity)
+        // CONTADOR SOMENTE ATIVIDADES COM PERIODICIDADE
+        const countableActivities = dailyActivities.filter(a =>
+            COUNTABLE_PERIODICITIES.includes(a.periodicity)
         );
-        
-        // Verifica se o dia é FREEZING (para destaque de cor)
-        const isFreezing = dailyActivities.some(a => a.priority === "FREEZING");
-        
-        // VERIFICAÇÃO DE ALTA PRIORIDADE VISUAL (FERIADO OU FREEZING COMERCIAL)
-        const isHighPriorityFreezingVisual = dailyActivities.some(a => 
-            a.company === "FERIADO" || a.company === "FREEZING COMERCIAL"
-        );
-        
-        // Verifica se há *qualquer* atividade
-        const hasActivities = dailyActivities.length > 0;
 
-
-        if (isFreezing) {
-            dayElement.classList.add('has-activity'); 
-
-            // 1. MAIOR PRIORIDADE VISUAL: FERIADO OU FREEZING COMERCIAL
-            if (isHighPriorityFreezingVisual) {
-                dayElement.classList.add('holiday'); 
-            } 
-            // 2. SEGUNDA PRIORIDADE: TBRA RELEASE ou TBRA NGIN
-            else if (dailyActivities.some(a => a.company_group === "TBRA RELEASE" || a.company_group === "TBRA NGIN")) {
-                dayElement.classList.add('freezing-tbra-release-ngin');
-            } 
-            // 3. TERCEIRA PRIORIDADE: TBRA GERAL
-            else if (dailyActivities.some(a => a.company === "TBRA")) {
-                dayElement.classList.add('freezing-tbra');
-            } 
-            // 4. QUARTA PRIORIDADE: B2B/HUAWEI
-            else if (dailyActivities.some(a => a.company === "B2B" || a.company === "HUAWEI")) {
-                dayElement.classList.add('freezing-b2b-huawei');
-            }
-
-        } else if (hasActivities) {
-            // Lógica para atividades gerais (NÃO FREEZING)
-            
-            dayElement.classList.add('general-activity'); 
-            dayElement.classList.add('has-activity');
-        }
-        
-        // 5. CRIAÇÃO DO INDICADOR DE ATIVIDADE
-        // Exibe o contador se houver *qualquer* atividade
-        if (hasActivities) {
+        if (countableActivities.length > 0) {
             const indicator = document.createElement('span');
             indicator.classList.add('activity-indicator');
-            
-            // A contagem usa o array filtrado por periodicidade!
             indicator.textContent = `${countableActivities.length} Ativ.`;
-            
             dayElement.appendChild(indicator);
         }
 
-        // Adiciona o evento de clique para abrir o modal
-        dayElement.addEventListener('click', () => openActivityModal(dateString, dailyActivities, isHighPriorityFreezingVisual));
+        // COR DO DIA
+        let appliedClass = null;
+
+        if (dailyActivities.some(a => a.company === 'FERIADO')) {
+            appliedClass = dayClassMap['FERIADO'];
+        } else {
+            const priorityOrder = [
+                'TBRA_FREEZING',
+                'B2B_HUAWEI_FREEZING',
+                'TBRA_RELEASE',
+                'ENGEMON',
+                'VENDORS'
+            ];
+
+            for (const group of priorityOrder) {
+                if (dailyActivities.some(a => a.company_group === group)) {
+                    appliedClass = dayClassMap[group];
+                    break;
+                }
+            }
+        }
+
+        if (appliedClass) {
+            dayElement.classList.add(appliedClass);
+        }
+
+        dayElement.addEventListener('click', () => {
+            openActivityModal(dateString, dailyActivities);
+        });
 
         daysGrid.appendChild(dayElement);
     }
 }
 
-// --- FUNÇÕES DE DADOS E INTERAÇÃO ---
+// ==========================================================
+// MODAL
+// ==========================================================
+function openActivityModal(dateString, dailyActivities) {
+    currentModalDate = dateString;
 
-/**
- * Carrega os agendamentos do arquivo JSON.
- */
-async function loadActivities() {
-    try {
-        const response = await fetch('./data/activities.json');
-        if (!response.ok) {
-            console.warn("Arquivo activities.json não encontrado ou vazio. Iniciando com dados vazios.");
-            return;
-        }
-        activities = await response.json();
-    } catch (error) {
-        console.error("Erro ao carregar os dados das atividades:", error);
-    }
-}
+    // ATIVIDADES VÁLIDAS
+    currentModalActivities = dailyActivities.filter(a =>
+        COUNTABLE_PERIODICITIES.includes(a.periodicity)
+    );
 
-/**
- * Abre o modal para visualizar as atividades do dia
- */
-function openActivityModal(dateString, dailyActivities, isHighPriorityFreezingVisual) {
-    
     modalDateDisplay.textContent = dateString;
-    activitiesList.innerHTML = ''; // Limpa o conteúdo anterior
-    
-    const isHoliday = dailyActivities.some(a => a.company === "FERIADO");
-    
-    // Filtramos apenas o FERIADO para não aparecer duas vezes no aviso e na lista
-    const filteredActivities = dailyActivities.filter(a => a.company !== "FERIADO"); 
+    activitiesList.innerHTML = '';
+    modalTeamInfo.innerHTML = '';
 
-    let modalTitle;
-    
-    // Se for feriado, o título é a descrição do feriado + data
-    if (isHoliday) {
-        const holidayDescription = dailyActivities.find(a => a.company === "FERIADO")?.description || 'Feriado';
-        modalTitle = `${holidayDescription}: ${dateString}`;
-        
-    // Se for Freezing Comercial, ou qualquer outro dia, o título é genérico
-    } else {
-        modalTitle = `Detalhes do Dia: ${dateString}`;
+    // EQUIPE
+    const teamInfo = dayTeams[dateString];
+    const shift = getCurrentShift();
+
+    if (teamInfo) {
+        const teamName = shift === 'day' ? teamInfo.day : teamInfo.night;
+        if (teamName) {
+            modalTeamInfo.innerHTML = `
+                <div class="on-call-modal">
+                    👥 <strong>Equipe de plantão (${shift === 'day' ? 'Diurno' : 'Noturno'}):</strong>
+                    ${teamName}
+                </div>
+            `;
+        }
     }
 
-    document.querySelector('#activity-modal h3').textContent = modalTitle;
-    
-    // Verifica se deve exibir "Nenhuma atividade"
-    if (filteredActivities.length === 0 && !isHighPriorityFreezingVisual) {
-        activitiesList.innerHTML = '<p class="no-activity">Nenhuma atividade agendada neste dia.</p>';
+    // FERIADO (TEXTO SIMPLES)
+    const holiday = dailyActivities.find(a => a.company === 'FERIADO');
+    if (holiday) {
+        const feriadoEl = document.createElement('p');
+        feriadoEl.style.color = 'red';
+        feriadoEl.style.fontWeight = 'bold';
+        feriadoEl.textContent = holiday.description;
+        activitiesList.appendChild(feriadoEl);
+    }
+
+    // ATIVIDADES
+    if (currentModalActivities.length === 0) {
+        activitiesList.innerHTML += '<p>Nenhuma atividade agendada.</p>';
+        exportPdfTrigger.style.display = 'none';
     } else {
-        
-        // AVISO ESPECIAL: SOMENTE PARA FERIADO (a mensagem de aviso em negrito)
-        if (isHoliday) {
-            activitiesList.innerHTML += `<p style="color: red; font-weight: bold;">⚠️ É um feriado nacional! ${dailyActivities.find(a => a.company === "FERIADO")?.description || ''}</p><hr>`;
-        }
-        
-        // ORDENAÇÃO: Ordenar as atividades antes de renderizar
-        filteredActivities.sort((a, b) => {
-            const groupA = a.company_group || "Z_DEFAULT"; 
-            const groupB = b.company_group || "Z_DEFAULT";
-            
-            if (groupA < groupB) return -1;
-            if (groupA > groupB) return 1;
-            
-            // Critério secundário: Ordena por empresa
-            const companyA = a.company || "";
-            const companyB = b.company || "";
-            if (companyA < companyB) return -1;
-            if (companyA > companyB) return 1;
-            
-            return 0;
-        });
-        // FIM DA ORDENAÇÃO
+        exportPdfTrigger.style.display = 'block';
 
-        filteredActivities.forEach(activity => {
-            // CRIA A TAGS DE ESTILO
-            const periodicityTag = `<span class="periodicidade-tag p-${activity.periodicity}">${activity.periodicity}</span>`;
-            
-            // >>> TAGS DE PRIORIDADE REMOVIDAS DO MODAL <<<
-
-            // >>> INÍCIO DA LÓGICA DE COR DA BORDA (Engemon) <<<
-            let borderClass = `border-p-${activity.periodicity}`; // Padrão: usa a periodicidade
-
-            if (activity.company && activity.company.toUpperCase() === "ENGEMON") {
-                
-                const descNormalizada = activity.description
-                    .normalize("NFD") 
-                    .replace(/[\u0300-\u036f]/g, "") 
-                    .toUpperCase(); 
-                
-                // Subgrupo 1: Incêndio/Hidrante
-                if (descNormalizada.includes("INCENDIO") || descNormalizada.includes("HIDRANTE")) {
-                    borderClass = "border-engemon-incendio"; 
-                
-                // Subgrupo 2: Automação/Sensores
-                } else if (descNormalizada.includes("AUTOMACAO") || descNormalizada.includes("SENSORES")) {
-                    borderClass = "border-engemon-automacao"; 
-                } 
-            }
-            // >>> FIM DA LÓGICA DE COR DA BORDA <<<
-
-
-            // Lógica do groupKey para ORDENAÇÃO
-            const groupKey = activity.company_group 
-                ? activity.company_group.toUpperCase().replace(/[^A-Z0-9]+/g, '_').replace(/^_|_$/g, '')
-                : "DEFAULT";
-
+        currentModalActivities.forEach(activity => {
+            const tag = `<span class="periodicidade-tag p-${activity.periodicity}">${activity.periodicity}</span>`;
 
             const item = document.createElement('div');
-            item.classList.add('activity-item');
-            
-            // 1. ADICIONA A CLASSE DE ORDENAÇÃO CSS
-            item.classList.add(`order-gr-${groupKey}`); 
-
-            // 2. ADICIONA A CLASSE QUE DEFINE A COR DA BORDA LATERAL
-            item.classList.add(borderClass); 
-            
-            // CONTEÚDO FINAL DO CARD: Sem a tag de prioridade.
+            item.className = 'activity-item';
             item.innerHTML = `
-                <h4>${activity.company} ${periodicityTag}</h4>
+                <h4>${activity.company} ${tag}</h4>
                 <p><strong>Serviço:</strong> ${activity.description}</p>
             `;
-
             activitiesList.appendChild(item);
         });
     }
@@ -254,47 +234,72 @@ function openActivityModal(dateString, dailyActivities, isHighPriorityFreezingVi
     activityModal.style.display = 'block';
 }
 
+// ==========================================================
+// EXPORTAR PDF (IDÊNTICO AO MODAL, COM CSS)
+// ==========================================================
+async function exportActivitiesToPDF() {
+    if (currentModalActivities.length === 0) return;
 
-/**
- * Função para fechar o modal.
- */
+    const modalContent = document.querySelector('.modal-content');
+
+    exportPdfTrigger.style.display = 'none';
+
+    const canvas = await html2canvas(modalContent, {
+        scale: 2,
+        useCORS: true
+    });
+
+    const imgData = canvas.toDataURL('image/png');
+    const { jsPDF } = window.jspdf;
+
+    const pdf = new jsPDF('p', 'mm', 'a4');
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+    pdf.save(`atividades_${currentModalDate}.pdf`);
+
+    exportPdfTrigger.style.display = 'block';
+}
+
+// ==========================================================
+// FECHAR MODAL
+// ==========================================================
 function closeModal() {
     activityModal.style.display = 'none';
 }
 
-// --- EVENT LISTENERS E INICIALIZAÇÃO ---
-
-// Navegação do Calendário
+// ==========================================================
+// EVENTOS
+// ==========================================================
 prevMonthBtn.addEventListener('click', () => {
-    currentMonth--;
-    if (currentMonth < 0) {
-        currentMonth = 11;
-        currentYear--;
-    }
+    currentMonth = currentMonth === 0 ? 11 : currentMonth - 1;
+    if (currentMonth === 11) currentYear--;
     renderCalendar(currentYear, currentMonth);
 });
 
 nextMonthBtn.addEventListener('click', () => {
-    currentMonth++;
-    if (currentMonth > 11) {
-        currentMonth = 0;
-        currentYear++;
-    }
+    currentMonth = currentMonth === 11 ? 0 : currentMonth + 1;
+    if (currentMonth === 0) currentYear++;
     renderCalendar(currentYear, currentMonth);
 });
 
-// Fechar Modal
 closeModalBtn.addEventListener('click', closeModal);
-window.addEventListener('click', (event) => {
-    if (event.target === activityModal) {
-        closeModal();
-    }
+
+window.addEventListener('click', e => {
+    if (e.target === activityModal) closeModal();
 });
 
-// Inicialização: Carrega os dados e desenha o calendário
+if (exportPdfTrigger) {
+    exportPdfTrigger.addEventListener('click', exportActivitiesToPDF);
+}
+
+// ==========================================================
+// INIT
+// ==========================================================
 async function init() {
-    await loadActivities(); // Espera os dados carregarem
-    renderCalendar(currentYear, currentMonth); // Desenha o calendário
+    await loadActivities();
+    renderCalendar(currentYear, currentMonth);
 }
 
 init();
