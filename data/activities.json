@@ -1,27 +1,33 @@
 [
+    {"COMENTARIO": "DIA 01-----------------------------------------------------------------------------------------"},
+
     {
         "date": "2026-01-01",
         "company": "FERIADO",
         "description": "FERIADO FIM DE ANO",
         "company_group": "FERIADO"
     },
+
     {
         "date": "2026-01-01",
         "on_call_day": "Equipe C",
         "on_call_night": "Equipe D"
     },
+
     {
         "date": "2026-01-01",
         "company": "FREEZING COMERCIAL",
         "description": "TBRA - FREEZING FIM DE ANO",
         "company_group": "TBRA_FREEZING"
     },
+
     {
         "date": "2026-01-01",
         "company": "B2B",
         "description": "B2B TBRA - FREEZING HUAWEI",
         "company_group": "B2B_HUAWEI_FREEZING"
     },
+    
     {
         "date": "2026-01-01",
         "company": "Engemon",
