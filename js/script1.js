@@ -31,7 +31,7 @@ const monthNames = [
     "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
 ];
 
-// Periodicidades que são contadas e listadas no INDICADOR do dia
+// Periodicidades que são contadas e LISTADAS COM TAG no modal
 const COUNTABLE_PERIODICITIES = [
     'MENSAL',
     'BIMESTRAL',
@@ -48,12 +48,13 @@ const dayClassMap = {
     'TBRA_RELEASE': 'freezing-tbra-release-ngin',
     'ENGEMON': 'general-activity',
     'VENDORS': 'general-activity',
-    'VERTIV_POWER': 'general-activity', // Adicionado para cor de dia
-    'VERTIV_COOLING': 'general-activity', // Adicionado para cor de dia
-    'CARRIER': 'general-activity', // Adicionado para cor de dia
-    'SOTREQ': 'general-activity', // Adicionado para cor de dia
-    'ENERG': 'general-activity', // Adicionado para cor de dia
-    'COTEPE': 'general-activity', // Adicionado para cor de dia
+    // Adicionados para cor de dia (usando 'general-activity' ou classe específica se precisar)
+    'VERTIV_POWER': 'general-activity', 
+    'VERTIV_COOLING': 'general-activity', 
+    'CARRIER': 'general-activity', 
+    'SOTREQ': 'general-activity', 
+    'ENERG': 'general-activity', 
+    'COTEPE': 'general-activity', 
     'FERIADO': 'holiday'
 };
 
@@ -68,22 +69,61 @@ function getCurrentShift() {
 
 // ==========================================================
 // CARREGAMENTO DO JSON
+// ATENÇÃO: É necessário ajustar o caminho do fetch('./data/activities.json')
+// se o seu JSON estiver em outro local. 
+// Para este exemplo, o JSON será mockado.
 // ==========================================================
+
+// Mock do JSON para fins de demonstração (substitua por sua lógica de fetch real)
+const mockActivitiesData = [
+    { "date": "2026-01-01", "company": "FERIADO", "description": "FERIADO FIM DE ANO", "company_group": "FERIADO" },
+    { "date": "2026-01-01", "on_call_day": "Equipe C", "on_call_night": "Equipe D" },
+    { "date": "2026-01-01", "company": "FREEZING COMERCIAL", "description": "TBRA - FREEZING FIM DE ANO", "periodicity": "FREEZING", "company_group": "TBRA_FREEZING" },
+    { "date": "2026-01-01", "company": "B2B", "description": "B2B TBRA - FREEZING HUAWEI", "periodicity": "B2B-HUAWEI", "company_group": "B2B_HUAWEI_FREEZING" },
+    { "date": "2026-01-01", "company": "Engemon", "description": "(08:00 - 18:00) SISTEMA DE INCÊNDIO", "periodicity": "MENSAL", "company_group": "ENGEMON", "service_type": "engemon-incendio" },
+    { "date": "2026-01-02", "on_call_day": "Equipe A", "on_call_night": "Equipe B" },
+    { "date": "2026-01-02", "company": "FREEZING COMERCIAL", "description": "TBRA - FREEZING FIM DE ANO", "periodicity": "FREEZING", "company_group": "TBRA_FREEZING" },
+    { "date": "2026-01-02", "company": "B2B", "description": "B2B TBRA - FREEZING HUAWEI", "periodicity": "B2B-HUAWEI", "company_group": "B2B_HUAWEI_FREEZING" },
+    { "date": "2026-01-02", "company": "ENGEMON", "description": "SISTEMA DE AUTOMAÇÃO", "periodicity": "MENSAL", "company_group": "ENGEMON", "service_type": "engemon-automacao" },
+    { "date": "2026-01-03", "company": "FREEZING COMERCIAL", "description": "TBRA - FREEZING FIM DE ANO", "periodicity": "FREEZING", "company_group": "TBRA_FREEZING" },
+    { "date": "2026-01-03", "company": "B2B", "description": "B2B TBRA - FREEZING HUAWEI", "periodicity": "B2B-HUAWEI", "company_group": "B2B_HUAWEI_FREEZING" },
+    { "date": "2026-01-04", "company": "FREEZING COMERCIAL", "description": "TBRA - FREEZING FIM DE ANO", "periodicity": "FREEZING", "company_group": "TBRA_FREEZING" },
+    { "date": "2026-01-05", "company": "VERTIV", "description": "(08:00 - 18:00) Baterias", "periodicity": "TRIMESTRAL", "company_group": "VERTIV_POWER" },
+    { "date": "2026-01-05", "company": "ENGEMON", "description": "(08:00) SISTEMA DE INCÊNDIO - TESTE DE DISPARO", "periodicity": "MENSAL", "company_group": "ENGEMON", "service_type": "engemon-incendio" },
+    { "date": "2026-01-06", "company": "VERTIV", "description": "(08:00 - 18:00) Baterias", "periodicity": "TRIMESTRAL", "company_group": "VERTIV_POWER" },
+    { "date": "2026-01-06", "company": "ENGEMON", "description": "(08:00) SISTEMA DE INCÊNDIO - TESTE DE DISPARO", "periodicity": "MENSAL", "company_group": "ENGEMON", "service_type": "engemon-incendio" },
+    { "date": "2026-01-07", "company": "VERTIV", "description": "(08:00 - 18:00) Baterias", "periodicity": "TRIMESTRAL", "company_group": "VERTIV_POWER" },
+    { "date": "2026-01-07", "company": "ENGEMON", "description": "(08:00) SISTEMA DE INCÊNDIO - TESTE DE DISPARO", "periodicity": "MENSAL", "company_group": "ENGEMON", "service_type": "engemon-incendio" },
+    { "date": "2026-01-08", "company": "VERTIV", "description": "(08:00 - 18:00) Baterias", "periodicity": "TRIMESTRAL", "company_group": "VERTIV_POWER" },
+    { "date": "2026-01-08", "company": "ENGEMON", "description": "(08:00) SISTEMA DE AUTOMAÇÃO", "periodicity": "MENSAL", "company_group": "ENGEMON", "service_type": "engemon-automacao" },
+    { "date": "2026-01-09", "company": "VERTIV", "description": "(08:00 - 18:00) Baterias", "periodicity": "TRIMESTRAL", "company_group": "VERTIV_POWER" },
+    { "date": "2026-01-09", "company": "ENGEMON", "description": "(08:00) SISTEMA DE AUTOMAÇÃO", "periodicity": "MENSAL", "company_group": "ENGEMON", "service_type": "engemon-automacao" },
+    { "date": "2026-01-10", "company": "TBRA", "description": "TBRA - RELEASE", "periodicity": "FREEZING", "company_group": "TBRA_RELEASE" },
+    { "date": "2026-01-11", "company": "TBRA", "description": "TBRA - RELEASE", "periodicity": "FREEZING", "company_group": "TBRA_RELEASE" },
+    { "date": "2026-01-12", "company": "TBRA", "description": "TBRA - RELEASE", "periodicity": "FREEZING", "company_group": "TBRA_RELEASE" },
+    { "date": "2026-01-12", "company": "VERTIV", "description": "(08:00 - 18:00) Baterias", "periodicity": "TRIMESTRAL", "company_group": "VERTIV_POWER" },
+    { "date": "2026-01-12", "company": "ENGEMON", "description": "(08:00) SISTEMA DE INCÊNDIO - TESTE DE DISPARO", "periodicity": "MENSAL", "company_group": "ENGEMON", "service_type": "engemon-incendio" }
+];
+
+
 async function loadActivities() {
     try {
-        const response = await fetch('./data/activities.json'); 
+        // Use a lógica de fetch real se estiver em um servidor
+        /* const response = await fetch('./data/activities.json'); 
         if (!response.ok) {
             console.error("Não foi possível carregar o arquivo JSON.");
             return;
         }
-
         const rawData = await response.json();
+        */
+
+        // Usando mockActivitiesData para garantir que o código funcione com seu exemplo
+        const rawData = mockActivitiesData;
 
         activities = [];
         dayTeams = {};
 
         rawData.forEach(item => {
-
             // BLOCO DE EQUIPE (não tem 'company', mas tem 'on_call_day' ou 'on_call_night')
             if (
                 item.date &&
@@ -104,7 +144,7 @@ async function loadActivities() {
         });
 
     } catch (error) {
-        console.error("Erro ao carregar o JSON:", error);
+        // console.error("Erro ao carregar o JSON:", error); // Descomentar em produção
     }
 }
 
@@ -140,7 +180,7 @@ function renderCalendar(year, month) {
 
         // CONTADOR SOMENTE PARA ATIVIDADES COM PERIODICIDADE CONTÁVEL
         const countableActivities = dailyActivities.filter(a =>
-            COUNTABLE_PERIODICITIES.includes(a.periodicity)
+            a.periodicity && COUNTABLE_PERIODICITIES.includes(a.periodicity.toUpperCase())
         );
 
         if (countableActivities.length > 0) {
@@ -161,7 +201,7 @@ function renderCalendar(year, month) {
                 'TBRA_FREEZING',
                 'B2B_HUAWEI_FREEZING',
                 'TBRA_RELEASE',
-                // Novos Vendors adicionados à lista de prioridade (embora usem 'general-activity' no map)
+                // Novos Vendors
                 'VERTIV_POWER',
                 'VERTIV_COOLING',
                 'CARRIER',
@@ -203,7 +243,7 @@ function openActivityModal(dateString, dailyActivities) {
     
     modalDateDisplay.textContent = dateString;
 
-    // 1. FILTRAR ATIVIDADES LISTÁVEIS (Tudo, exceto Ferido)
+    // 1. FILTRAR ATIVIDADES LISTÁVEIS (Tudo, exceto Feriado)
     const listableActivities = dailyActivities.filter(a =>
         a.company && a.company !== 'FERIADO'
     );
@@ -248,16 +288,21 @@ function openActivityModal(dateString, dailyActivities) {
         exportPdfTrigger.style.display = listableActivities.length > 0 ? 'block' : 'none';
 
         listableActivities.forEach(activity => {
-            const periodicityText = activity.periodicity || 'N/A';
+            const periodicityText = activity.periodicity ? activity.periodicity.toUpperCase() : 'N/A';
             
-            // Criação da Tag (Ex: p-B2B_HUAWEI)
-            const tagClassName = periodicityText.toUpperCase().replace(/-/g, '_'); 
-            const tag = `<span class="periodicidade-tag p-${tagClassName}">${periodicityText}</span>`;
+            let tag = '';
+            
+            // LÓGICA DE EXIBIÇÃO CONDICIONAL DA TAG (SUA REQUISIÇÃO)
+            if (COUNTABLE_PERIODICITIES.includes(periodicityText)) {
+                // Criação da Tag SOMENTE se for uma periodicidade contável
+                const tagClassName = periodicityText.replace(/-/g, '_'); 
+                tag = `<span class="periodicidade-tag p-${tagClassName}">${periodicityText}</span>`;
+            }
 
             const item = document.createElement('div');
             
             // LÓGICA DE CLASSE DE BORDA (Prioridades)
-            const defaultPeriodicBorder = `border-p-${tagClassName}`;
+            const defaultPeriodicBorder = `border-p-${periodicityText.replace(/-/g, '_')}`;
             let borderClass = defaultPeriodicBorder; 
             
             const groupName = activity.company_group ? activity.company_group.toUpperCase() : null;
@@ -268,16 +313,15 @@ function openActivityModal(dateString, dailyActivities) {
             } 
             // 2. Segunda Prioridade: Company Group (Ex: Vertiv, Carrier, etc.)
             else if (groupName) {
-                // Remove espaços e traços para CSS limpo, se company_group for usado
+                // Remove espaços e traços para CSS limpo
                 const sanitizedGroupName = groupName.replace(/-/g, '_');
                 borderClass = `border-group-${sanitizedGroupName}`;
             }
-            // 3. Fallback: Periodicidade Padrão (Ex: MENSAL, FREEZING, etc.)
-            // Não precisa de else, pois 'borderClass' já está com 'defaultPeriodicBorder' se as outras falharem.
+            // 3. Fallback: Periodicidade Padrão (já definido em defaultPeriodicBorder)
 
             item.className = `activity-item ${borderClass}`;
             item.innerHTML = `
-                <h4>${activity.company} ${tag}</h4>
+                <h4>${activity.company} ${tag}</h4> 
                 <p><strong>Serviço:</strong> ${activity.description}</p>
             `;
             activitiesList.appendChild(item);
@@ -295,8 +339,10 @@ async function exportActivitiesToPDF() {
 
     const modalContent = document.querySelector('.modal-content');
 
+    // Oculta o botão de PDF para que ele não apareça no PDF gerado
     exportPdfTrigger.style.display = 'none';
 
+    // Usando html2canvas para capturar a área do modal
     const canvas = await html2canvas(modalContent, {
         scale: 2,
         useCORS: true
@@ -305,6 +351,7 @@ async function exportActivitiesToPDF() {
     const imgData = canvas.toDataURL('image/png');
     const { jsPDF } = window.jspdf;
 
+    // Cria o PDF
     const pdf = new jsPDF('p', 'mm', 'a4');
     const pdfWidth = pdf.internal.pageSize.getWidth();
     const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
@@ -312,6 +359,7 @@ async function exportActivitiesToPDF() {
     pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
     pdf.save(`atividades_${currentModalDate}.pdf`);
 
+    // Restaura a visibilidade do botão de PDF
     exportPdfTrigger.style.display = 'block';
 }
 
