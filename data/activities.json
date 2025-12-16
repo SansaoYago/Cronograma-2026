@@ -1,246 +1,201 @@
 [
-  {"JANEIRO": "___________________________________________________DIA 01________________________________________________________________"},
-  {
-    "date": "2026-01-01",
-    "company": "FERIADO",
-    "description": "FERIADO FIM DE ANO"
-  },
-
-  {
-    "date": "2026-01-01",
-    "on_call_day": "Equipe C",
-    "on_call_night": "Equipe D"
-  },
-
-  {
-    "date": "2026-01-01",
-    "company": "FREEZING COMERCIAL",
-    "description": "TBRA - FREEZING FIM DE ANO",
-    "periodicity": "FREEZING",
-    "company_group": "TBRA_FREEZING"
-  },
-
-  {
-    "date": "2026-01-01",
-    "company": "B2B",
-    "description": "B2B TBRA - FREEZING HUAWEI",
-    "priority": "FREEZING",
-    "periodicity": "B2B-HUAWEI",
-    "company_group": "B2B_HUAWEI_FREEZING"
-  },
-
-  {
-    "date": "2026-01-01",
-    "company": "Engemon",
-    "description": "(08:00 - 18:00) SISTEMA DE INCÊNDIO",
-    "periodicity": "MENSAL",
-    "company_group": "ENGEMON"
-  },
-
-  {"JANEIRO": "___________________________________________________DIA 02________________________________________________________________"},
-
-  {
-    "date": "2026-01-02",
-    "on_call_day": "Equipe A",
-    "on_call_night": "Equipe B"
-  },
-
-  {
-    "date": "2026-01-02",
-    "company": "FREEZING COMERCIAL",
-    "description": "TBRA - FREEZING FIM DE ANO",
-    "priority": "FREEZING",
-    "periodicity": "FREEZING",
-    "company_group": "TBRA_FREEZING"
-  },
-
-   {
-    "date": "2026-01-02",
-    "company": "B2B",
-    "description": "B2B TBRA - FREEZING HUAWEI",
-    "periodicity": "B2B-HUAWEI",
-    "company_group": "B2B_HUAWEI_FREEZING"
-  },
-
-  {
-    "date": "2026-01-02",
-    "company": "ENGEMON",
-    "description": "SISTEMA DE AUTOMAÇÃO",
-    "periodicity": "MENSAL",
-    "company_group": "ENGEMON"
-  },
-
- 
-
-  {"JANEIRO": "___________________________________________________DIA 03________________________________________________________________"},
-  {
-    "date": "2026-01-03",
-    "company": "FREEZING COMERCIAL",
-    "description": "TBRA - FREEZING FIM DE ANO",
-    "priority": "FREEZING",
-    "periodicity": "FREEZING",
-    "company_group": "TBRA_FREEZING"
-  },
-
-   {
-    "date": "2026-01-03",
-    "company": "B2B",
-    "description": "B2B TBRA - FREEZING HUAWEI",
-    "periodicity": "B2B-HUAWEI",
-    "company_group": "B2B_HUAWEI_FREEZING"
-  },
-
-  {"JANEIRO": "___________________________________________________DIA 04________________________________________________________________"},
-  {
-    "date": "2026-01-04",
-    "company": "FREEZING COMERCIAL",
-    "description": "TBRA - FREEZING FIM DE ANO",
-    "priority": "FREEZING",
-    "periodicity": "FREEZING",
-    "company_group": "TBRA_FREEZING"
-  },
-
-  {"JANEIRO": "___________________________________________________DIA 05________________________________________________________________"},
-  {
-    "date": "2026-01-05",
-    "company": "VERTIV",
-    "description": "(08:00 - 18:00) Baterias",
-    "priority": " ",
-    "periodicity": "TRIMESTRAL",
-    "company_group": "VENDORS"
-  },
-
-  {
-    "date": "2026-01-05",
-    "company": "ENGEMON",
-    "description": "(08:00) SISTEMA DE INCÊNDIO - TESTE DE DISPARO",
-    "priority": " ",
-    "periodicity": "MENSAL",
-    "company_group": "ENGEMON"
-  },
-
-  {"JANEIRO": "___________________________________________________DIA 06________________________________________________________________"},
-  {
-    "date": "2026-01-06",
-    "company": "VERTIV",
-    "description": "(08:00 - 18:00) Baterias",
-    "priority": " ",
-    "periodicity": "TRIMESTRAL",
-    "company_group": "VENDORS"
-  },
-
-  {
-    "date": "2026-01-06",
-    "company": "ENGEMON",
-    "description": "(08:00) SISTEMA DE INCÊNDIO - TESTE DE DISPARO",
-    "priority": " ",
-    "periodicity": "MENSAL",
-    "company_group": "ENGEMON"
-  },
-
-  {"JANEIRO": "___________________________________________________DIA 07________________________________________________________________"},
-  {
-    "date": "2026-01-07",
-    "company": "VERTIV",
-    "description": "(08:00 - 18:00) Baterias",
-    "priority": " ",
-    "periodicity": "TRIMESTRAL",
-    "company_group": "VENDORS"
-  },
-
-  {
-    "date": "2026-01-07",
-    "company": "ENGEMON",
-    "description": "(08:00) SISTEMA DE INCÊNDIO - TESTE DE DISPARO",
-    "priority": " ",
-    "periodicity": "MENSAL",
-    "company_group": "ENGEMON"
-  },
-
-  {"JANEIRO": "___________________________________________________DIA 08________________________________________________________________"},
-  {
-    "date": "2026-01-08",
-    "company": "VERTIV",
-    "description": "(08:00 - 18:00) Baterias",
-    "priority": " ",
-    "periodicity": "TRIMESTRAL",
-    "company_group": "VENDORS"
-  },
-
-  {
-    "date": "2026-01-08",
-    "company": "ENGEMON",
-    "description": "(08:00) SISTEMA DE AUTOMAÇÃO",
-    "priority": " ",
-    "periodicity": "MENSAL",
-    "company_group": "ENGEMON"
-  },
-
-  {"JANEIRO": "___________________________________________________DIA 09________________________________________________________________"},
     {
-    "date": "2026-01-09",
-    "company": "VERTIV",
-    "description": "(08:00 - 18:00) Baterias",
-    "priority": " ",
-    "periodicity": "TRIMESTRAL",
-    "company_group": "VENDORS"
-  },
+        "date": "2026-01-01",
+        "company": "FERIADO",
+        "description": "FERIADO FIM DE ANO",
+        "company_group": "FERIADO"
+    },
+    {
+        "date": "2026-01-01",
+        "on_call_day": "Equipe C",
+        "on_call_night": "Equipe D"
+    },
+    {
+        "date": "2026-01-01",
+        "company": "FREEZING COMERCIAL",
+        "description": "TBRA - FREEZING FIM DE ANO",
+        "periodicity": "FREEZING",
+        "company_group": "TBRA_FREEZING"
+    },
+    {
+        "date": "2026-01-01",
+        "company": "B2B",
+        "description": "B2B TBRA - FREEZING HUAWEI",
+        "periodicity": "B2B-HUAWEI",
+        "company_group": "B2B_HUAWEI_FREEZING"
+    },
+    {
+        "date": "2026-01-01",
+        "company": "Engemon",
+        "description": "(08:00 - 18:00) SISTEMA DE INCÊNDIO",
+        "periodicity": "MENSAL",
+        "company_group": "ENGEMON",
+        "service_type": "engemon-incendio"
+    },
 
-  {
-    "date": "2026-01-09",
-    "company": "ENGEMON",
-    "description": "(08:00) SISTEMA DE AUTOMAÇÃO",
-    "priority": " ",
-    "periodicity": "MENSAL",
-    "company_group": "ENGEMON"
-  },
+    {
+        "date": "2026-01-02",
+        "on_call_day": "Equipe A",
+        "on_call_night": "Equipe B"
+    },
+    {
+        "date": "2026-01-02",
+        "company": "FREEZING COMERCIAL",
+        "description": "TBRA - FREEZING FIM DE ANO",
+        "periodicity": "FREEZING",
+        "company_group": "TBRA_FREEZING"
+    },
+    {
+        "date": "2026-01-02",
+        "company": "B2B",
+        "description": "B2B TBRA - FREEZING HUAWEI",
+        "periodicity": "B2B-HUAWEI",
+        "company_group": "B2B_HUAWEI_FREEZING"
+    },
+    {
+        "date": "2026-01-02",
+        "company": "ENGEMON",
+        "description": "SISTEMA DE AUTOMAÇÃO",
+        "periodicity": "MENSAL",
+        "company_group": "ENGEMON",
+        "service_type": "engemon-automacao" 
+    },
 
-  {"JANEIRO": "___________________________________________________DIA 10________________________________________________________________"},
-  {
-    "date": "2026-01-10",
-    "company": "TBRA",
-    "description": "TBRA - RELEASE",
-    "priority": "FREEZING",
-    "periodicity": "FREEZING",
-    "company_group": "TBRA_RELEASE"
-  },
+  
+    {
+        "date": "2026-01-03",
+        "company": "FREEZING COMERCIAL",
+        "description": "TBRA - FREEZING FIM DE ANO",
+        "periodicity": "FREEZING",
+        "company_group": "TBRA_FREEZING"
+    },
+    {
+        "date": "2026-01-03",
+        "company": "B2B",
+        "description": "B2B TBRA - FREEZING HUAWEI",
+        "periodicity": "B2B-HUAWEI",
+        "company_group": "B2B_HUAWEI_FREEZING"
+    },
+    {
+        "date": "2026-01-04",
+        "company": "FREEZING COMERCIAL",
+        "description": "TBRA - FREEZING FIM DE ANO",
+        "periodicity": "FREEZING",
+        "company_group": "TBRA_FREEZING"
+    },
 
-  {"JANEIRO": "___________________________________________________DIA 11________________________________________________________________"},
-  {
-    "date": "2026-01-11",
-    "company": "TBRA",
-    "description": "TBRA - RELEASE",
-    "priority": "FREEZING",
-    "periodicity": "FREEZING",
-    "company_group": "TBRA_RELEASE"
-  },
+    
+    {
+        "date": "2026-01-05",
+        "company": "VERTIV",
+        "description": "(08:00 - 18:00) Baterias",
+        "periodicity": "TRIMESTRAL",
+        "company_group": "VERTIV_POWER" 
+    },
+    {
+        "date": "2026-01-05",
+        "company": "ENGEMON",
+        "description": "(08:00) SISTEMA DE INCÊNDIO - TESTE DE DISPARO",
+        "periodicity": "MENSAL",
+        "company_group": "ENGEMON",
+        "service_type": "engemon-incendio"
+    },
 
-  {"JANEIRO": "___________________________________________________DIA 12________________________________________________________________"},
-  {
-    "date": "2026-01-12",
-    "company": "TBRA",
-    "description": "TBRA - RELEASE",
-    "priority": "FREEZING",
-    "periodicity": "FREEZING",
-    "company_group": "TBRA_RELEASE"
-  },
+    {
+        "date": "2026-01-06",
+        "company": "VERTIV",
+        "description": "(08:00 - 18:00) Baterias",
+        "periodicity": "TRIMESTRAL",
+        "company_group": "VERTIV_POWER"
+    },
+    {
+        "date": "2026-01-06",
+        "company": "ENGEMON",
+        "description": "(08:00) SISTEMA DE INCÊNDIO - TESTE DE DISPARO",
+        "periodicity": "MENSAL",
+        "company_group": "ENGEMON",
+        "service_type": "engemon-incendio"
+    },
+    {
+        "date": "2026-01-07",
+        "company": "VERTIV",
+        "description": "(08:00 - 18:00) Baterias",
+        "periodicity": "TRIMESTRAL",
+        "company_group": "VERTIV_POWER"
+    },
+    {
+        "date": "2026-01-07",
+        "company": "ENGEMON",
+        "description": "(08:00) SISTEMA DE INCÊNDIO - TESTE DE DISPARO",
+        "periodicity": "MENSAL",
+        "company_group": "ENGEMON",
+        "service_type": "engemon-incendio"
+    },
 
-  {
-    "date": "2026-01-12",
-    "company": "VERTIV",
-    "description": "(08:00 - 18:00) Baterias",
-    "priority": " ",
-    "periodicity": "TRIMESTRAL",
-    "company_group": "VENDORS"
-  },
-
-  {
-    "date": "2026-01-12",
-    "company": "ENGEMON",
-    "description": "(08:00) SISTEMA DE INCÊNDIO - TESTE DE DISPARO",
-    "priority": " ",
-    "periodicity": "MENSAL",
-    "company_group": "ENGEMON"
-  }
+    {
+        "date": "2026-01-08",
+        "company": "VERTIV",
+        "description": "(08:00 - 18:00) Baterias",
+        "periodicity": "TRIMESTRAL",
+        "company_group": "VERTIV_POWER"
+    },
+    {
+        "date": "2026-01-08",
+        "company": "ENGEMON",
+        "description": "(08:00) SISTEMA DE AUTOMAÇÃO",
+        "periodicity": "MENSAL",
+        "company_group": "ENGEMON",
+        "service_type": "engemon-automacao"
+    },
+    {
+        "date": "2026-01-09",
+        "company": "VERTIV",
+        "description": "(08:00 - 18:00) Baterias",
+        "periodicity": "TRIMESTRAL",
+        "company_group": "VERTIV_POWER"
+    },
+    {
+        "date": "2026-01-09",
+        "company": "ENGEMON",
+        "description": "(08:00) SISTEMA DE AUTOMAÇÃO",
+        "periodicity": "MENSAL",
+        "company_group": "ENGEMON",
+        "service_type": "engemon-automacao"
+    },
+    {
+        "date": "2026-01-10",
+        "company": "TBRA",
+        "description": "TBRA - RELEASE",
+        "periodicity": "FREEZING",
+        "company_group": "TBRA_RELEASE"
+    },
+    {
+        "date": "2026-01-11",
+        "company": "TBRA",
+        "description": "TBRA - RELEASE",
+        "periodicity": "FREEZING",
+        "company_group": "TBRA_RELEASE"
+    },
+    {
+        "date": "2026-01-12",
+        "company": "TBRA",
+        "description": "TBRA - RELEASE",
+        "periodicity": "FREEZING",
+        "company_group": "TBRA_RELEASE"
+    },
+    {
+        "date": "2026-01-12",
+        "company": "VERTIV",
+        "description": "(08:00 - 18:00) Baterias",
+        "periodicity": "TRIMESTRAL",
+        "company_group": "VERTIV_POWER"
+    },
+    {
+        "date": "2026-01-12",
+        "company": "ENGEMON",
+        "description": "(08:00) SISTEMA DE INCÊNDIO - TESTE DE DISPARO",
+        "periodicity": "MENSAL",
+        "company_group": "ENGEMON",
+        "service_type": "engemon-incendio"
+    }
 ]
-

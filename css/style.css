@@ -113,7 +113,7 @@ main {
 }
 
 /* ========================================================== */
-/* --- 4. PRIORIDADES VISUAIS DO CALENDÁRIO --- */
+/* --- 4. PRIORIDADES VISUAIS DO CALENDÁRIO (CORES DOS DIAS) --- */
 /* ========================================================== */
 
 .day.holiday {
@@ -226,10 +226,25 @@ main {
 }
 
 /* ========================================================== */
-/* --- 8. CORES DE BORDA (PERIODICIDADE / ENGEMON) --- */
+/* --- 8. CORES DE BORDA NO MODAL (ATUALIZADO COM AS REGRAS DE CORES ESPECÍFICAS) --- */
 /* ========================================================== */
 
-.activity-item.border-p-B2B-HUAWEI { border-left-color: #bfbfbf; }
+/* --- Prioridade 1: Serviços Específicos (Engemon) --- */
+.activity-item.border-engemon-incendio { border-left-color: #92D050; } /* SISTEMA DE INCÊNDIO */
+.activity-item.border-engemon-automacao { border-left-color: #E8950E; } /* SISTEMA DE AUTOMAÇÃO */
+
+/* --- Prioridade 2: Company Groups (Vendors) --- */
+/* Note: O JS usa border-group-NOME */
+.activity-item.border-group-VERTIV_POWER { border-left-color: #FFFF00; }
+.activity-item.border-group-VERTIV_COOLING { border-left-color: #92CDDC; }
+.activity-item.border-group-CARRIER { border-left-color: #BFBFBF; }
+.activity-item.border-group-SOTREQ { border-left-color: #C1B991; }
+.activity-item.border-group-ENERG { border-left-color: #E6B8B7; }
+.activity-item.border-group-COTEPE { border-left-color: #DEC97C; }
+
+/* --- Prioridade 3: Periodicidades Genéricas (Fallback) --- */
+/* CORRIGIDO: B2B-HUAWEI agora é B2B_HUAWEI no JS e CSS */
+.activity-item.border-p-B2B_HUAWEI { border-left-color: #bfbfbf; } 
 .activity-item.border-p-FREEZING { border-left-color: #fec0fe; }
 .activity-item.border-p-MENSAL { border-left-color: #da9694; }
 .activity-item.border-p-BIMESTRAL { border-left-color: #e26b0a; }
@@ -238,11 +253,9 @@ main {
 .activity-item.border-p-SEMESTRAL { border-left-color: #00b050; }
 .activity-item.border-p-ANUAL { border-left-color: #ff0000; }
 
-.activity-item.border-engemon-incendio { border-left-color: #92d050; }
-.activity-item.border-engemon-automacao { border-left-color: #e8950e; }
 
 /* ========================================================== */
-/* --- 9. TAGS DE PERIODICIDADE --- */
+/* --- 9. TAGS DE PERIODICIDADE NO MODAL (CORES AJUSTADAS) --- */
 /* ========================================================== */
 
 .periodicidade-tag {
@@ -254,7 +267,8 @@ main {
     border: 1px solid #333;
 }
 
-.p-B2B-HUAWEI { background-color: #bfbfbf; }
+/* Cores de Fundo das Tags - Manter coerência com a borda, se possível */
+.p-B2B_HUAWEI { background-color: #bfbfbf; } 
 .p-FREEZING { background-color: #fec0fe; }
 .p-MENSAL { background-color: #da9694; }
 .p-BIMESTRAL { background-color: #e26b0a; }
@@ -265,6 +279,11 @@ main {
     background-color: #ff0000;
     color: white;
 }
+
+/* Nota: Para as atividades específicas (Engemon, Vertiv, etc.) que usam o border-group, 
+   a cor da tag (fundo do texto MENSAL/ANUAL) continua sendo a cor da periodicidade.
+   A cor da borda é quem faz a distinção.
+*/
 
 .pdf-clickable {
     cursor: pointer;
