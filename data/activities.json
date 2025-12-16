@@ -14,14 +14,12 @@
         "date": "2026-01-01",
         "company": "FREEZING COMERCIAL",
         "description": "TBRA - FREEZING FIM DE ANO",
-        "periodicity": "FREEZING",
         "company_group": "TBRA_FREEZING"
     },
     {
         "date": "2026-01-01",
         "company": "B2B",
         "description": "B2B TBRA - FREEZING HUAWEI",
-        "periodicity": "B2B-HUAWEI",
         "company_group": "B2B_HUAWEI_FREEZING"
     },
     {

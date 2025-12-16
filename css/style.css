@@ -229,6 +229,12 @@ main {
 /* --- 8. CORES DE BORDA NO MODAL (ATUALIZADO COM AS REGRAS DE CORES ESPECÍFICAS) --- */
 /* ========================================================== */
 
+/* Adicionando cores específicas para os grupos de Freezing/Release no Modal (NOVO BLOCO) */
+.activity-item.border-group-TBRA_FREEZING { border-left-color: #fec0fe; } /* CORRIGIDO: Cor #fec0fe para FREEZING COMERCIAL (TBRA_FREEZING) */
+.activity-item.border-group-B2B_HUAWEI_FREEZING { border-left-color: #bfbfbf; } /* B2B HUAWEI FREEZING */
+.activity-item.border-group-TBRA_RELEASE { border-left-color: #0099cc; } /* TBRA RELEASE */
+
+
 /* --- Prioridade 1: Serviços Específicos (Engemon) --- */
 .activity-item.border-engemon-incendio { border-left-color: #92D050; } /* SISTEMA DE INCÊNDIO */
 .activity-item.border-engemon-automacao { border-left-color: #E8950E; } /* SISTEMA DE AUTOMAÇÃO */
@@ -243,7 +249,7 @@ main {
 .activity-item.border-group-COTEPE { border-left-color: #DEC97C; }
 
 /* --- Prioridade 3: Periodicidades Genéricas (Fallback) --- */
-/* CORRIGIDO: B2B-HUAWEI agora é B2B_HUAWEI no JS e CSS */
+/* Estas regras só serão aplicadas se a periodicidade existir e não houver um Company Group específico */
 .activity-item.border-p-B2B_HUAWEI { border-left-color: #bfbfbf; } 
 .activity-item.border-p-FREEZING { border-left-color: #fec0fe; }
 .activity-item.border-p-MENSAL { border-left-color: #da9694; }
@@ -282,8 +288,8 @@ main {
 }
 
 /* Nota: Para as atividades específicas (Engemon, Vertiv, etc.) que usam o border-group, 
-   a cor da tag (fundo do texto MENSAL/ANUAL) continua sendo a cor da periodicidade.
-   A cor da borda é quem faz a distinção.
+    a cor da tag (fundo do texto MENSAL/ANUAL) continua sendo a cor da periodicidade.
+    A cor da borda é quem faz a distinção.
 */
 
 .pdf-clickable {
