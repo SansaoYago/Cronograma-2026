@@ -54,7 +54,7 @@ main {
 }
 
 /* ========================================================== */
-/* --- 3. LAYOUT DO CALENDÁRIO --- */
+/* --- 3. LAYOUT DO CALENDÁRIO (GRID) --- */
 /* ========================================================== */
 
 .weekdays,
@@ -113,7 +113,7 @@ main {
 }
 
 /* ========================================================== */
-/* --- 4. PRIORIDADES VISUAIS DO CALENDÁRIO (CORES DOS DIAS) --- */
+/* --- 4. CORES DE STATUS DO DIA (CALENDÁRIO) --- */
 /* ========================================================== */
 
 .day.holiday {
@@ -125,6 +125,7 @@ main {
     color: red;
 }
 
+/* FREEZINGS */
 .day.freezing-tbra-release-ngin {
     background-color: #c9e6f3;
     border-left: 5px solid #0099cc;
@@ -140,13 +141,14 @@ main {
     border-left: 5px solid #bfbfbf;
 }
 
+/* ATIVIDADE GENÉRICA (VENDORS/ENGEMON) */
 .day.general-activity {
     background-color: #d4edda;
     border-left: 5px solid #155724;
 }
 
 /* ========================================================== */
-/* --- 5. MODAL --- */
+/* --- 5. MODAL BASE (Display e Conteúdo) --- */
 /* ========================================================== */
 
 .modal {
@@ -165,20 +167,19 @@ main {
     width: 80%;
     max-width: 600px;
     border-radius: 10px;
-    position: relative;
+    position: relative; 
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
-.modal-content h3 {
-    word-wrap: break-word;
-}
-
+/* Garante que o botão de fechar fique no canto superior direito */
 .close-btn {
     color: #aaa;
-    float: right;
+    float: right; /* Reativado o float para o 'x' */
     font-size: 28px;
     font-weight: bold;
     cursor: pointer;
+    line-height: 1;
+    margin-top: -10px; /* Ajuste fino para encaixar no canto */
 }
 
 .close-btn:hover {
@@ -186,9 +187,29 @@ main {
 }
 
 /* ========================================================== */
-/* --- 6. BLOCO DE EQUIPE NO MODAL (NOVO) --- */
+/* --- 5.1. CABEÇALHO DO MODAL E CONTROLES (Título Esquerda, PDF Direita) --- */
 /* ========================================================== */
+.modal-header-controls {
+    display: flex;
+    /* Alinha o primeiro elemento (h3) na esquerda e o último (img) na direita */
+    justify-content: space-between; 
+    align-items: center; /* Alinhamento vertical */
+    margin-bottom: 15px;
+    /* Limpa o float do close-btn para garantir que o flexbox funcione corretamente */
+    overflow: hidden; 
+}
 
+/* Garante que o H3 ocupe a esquerda e não seja afetado pelo float do close-btn */
+.modal-header-controls h3 {
+    margin: 0; 
+    /* Margem à direita para dar espaço entre o título e o ícone do PDF */
+    margin-right: 15px; 
+    word-wrap: break-word;
+    /* Garante que o título se ajuste ao espaço */
+    flex-grow: 1; 
+}
+
+/* Bloco de Equipe de Plantão */
 .on-call-modal {
     background-color: #e9f5ff;
     border-left: 5px solid #007bff;
@@ -198,8 +219,16 @@ main {
     margin-bottom: 10px;
 }
 
+/* Botão de Exportar PDF */
+.pdf-clickable {
+    cursor: pointer;
+    width: 35px;
+    /* Garante que o PDF fique sempre na extrema direita */
+    flex-shrink: 0; 
+}
+
 /* ========================================================== */
-/* --- 7. LISTA DE ATIVIDADES NO MODAL --- */
+/* --- 6. LISTA DE ATIVIDADES NO MODAL --- */
 /* ========================================================== */
 
 #activities-list {
@@ -212,7 +241,7 @@ main {
 .activity-item {
     border: 1px solid #ccc;
     padding: 10px;
-    border-left: 5px solid #ccc;
+    border-left: 5px solid #ccc; /* Fallback padrão */
 }
 
 .activity-item h4 {
@@ -225,45 +254,7 @@ main {
     word-wrap: break-word;
 }
 
-/* ========================================================== */
-/* --- 8. CORES DE BORDA NO MODAL (ATUALIZADO COM AS REGRAS DE CORES ESPECÍFICAS) --- */
-/* ========================================================== */
-
-/* Adicionando cores específicas para os grupos de Freezing/Release no Modal (NOVO BLOCO) */
-.activity-item.border-group-TBRA_FREEZING { border-left-color: #fec0fe; } /* CORRIGIDO: Cor #fec0fe para FREEZING COMERCIAL (TBRA_FREEZING) */
-.activity-item.border-group-B2B_HUAWEI_FREEZING { border-left-color: #bfbfbf; } /* B2B HUAWEI FREEZING */
-.activity-item.border-group-TBRA_RELEASE { border-left-color: #0099cc; } /* TBRA RELEASE */
-
-
-/* --- Prioridade 1: Serviços Específicos (Engemon) --- */
-.activity-item.border-engemon-incendio { border-left-color: #92D050; } /* SISTEMA DE INCÊNDIO */
-.activity-item.border-engemon-automacao { border-left-color: #E8950E; } /* SISTEMA DE AUTOMAÇÃO */
-
-/* --- Prioridade 2: Company Groups (Vendors) --- */
-/* Note: O JS usa border-group-NOME */
-.activity-item.border-group-VERTIV_POWER { border-left-color: #FFFF00; }
-.activity-item.border-group-VERTIV_COOLING { border-left-color: #92CDDC; }
-.activity-item.border-group-CARRIER { border-left-color: #BFBFBF; }
-.activity-item.border-group-SOTREQ { border-left-color: #C1B991; }
-.activity-item.border-group-ENERG { border-left-color: #E6B8B7; }
-.activity-item.border-group-COTEPE { border-left-color: #DEC97C; }
-
-/* --- Prioridade 3: Periodicidades Genéricas (Fallback) --- */
-/* Estas regras só serão aplicadas se a periodicidade existir e não houver um Company Group específico */
-.activity-item.border-p-B2B_HUAWEI { border-left-color: #bfbfbf; } 
-.activity-item.border-p-FREEZING { border-left-color: #fec0fe; }
-.activity-item.border-p-MENSAL { border-left-color: #da9694; }
-.activity-item.border-p-BIMESTRAL { border-left-color: #e26b0a; }
-.activity-item.border-p-TRIMESTRAL { border-left-color: #ffff00; }
-.activity-item.border-p-QUADRIMESTRAL { border-left-color: #95b3d7; }
-.activity-item.border-p-SEMESTRAL { border-left-color: #00b050; }
-.activity-item.border-p-ANUAL { border-left-color: #ff0000; }
-
-
-/* ========================================================== */
-/* --- 9. TAGS DE PERIODICIDADE NO MODAL (CORES AJUSTADAS) --- */
-/* ========================================================== */
-
+/* Tags de Periodicidade */
 .periodicidade-tag {
     color: Black;
     font-size: 0.75em;
@@ -274,32 +265,66 @@ main {
     border: 1px solid #33333363;
 }
 
-/* Cores de Fundo das Tags - Manter coerência com a borda, se possível */
-.p-B2B_HUAWEI { background-color: #bfbfbf; } 
-.p-FREEZING { background-color: #fec0fe; }
-.p-MENSAL { background-color: #da9694; }
-.p-BIMESTRAL { background-color: #e26b0a; }
-.p-TRIMESTRAL { background-color: #ffff00; }
-.p-QUADRIMESTRAL { background-color: #95b3d7; }
-.p-SEMESTRAL { background-color: #00b050; }
+/* ========================================================== */
+/* --- 7. CORES DE BORDA POR GRUPO/SERVIÇO (PRECEDÊNCIA) --- */
+/* ========================================================== */
+
+/* A. Prioridade Máxima: Serviços Específicos (ex: Engemon) */
+.activity-item.border-engemon-incendio { border-left-color: #92D050; } /* SISTEMA DE INCÊNDIO */
+.activity-item.border-engemon-automacao { border-left-color: #E8950E; } /* SISTEMA DE AUTOMAÇÃO */
+
+/* B. Prioridade Média: Company Groups */
+.activity-item.border-group-TBRA_FREEZING { border-left-color: #fec0fe; }
+.activity-item.border-group-B2B_HUAWEI_FREEZING { border-left-color: #FFC000; }
+.activity-item.border-group-TBRA_RELEASE { border-left-color: #FFC000; } 
+/* Outros Vendors */
+.activity-item.border-group-VERTIV_POWER { border-left-color: #FFFF00; }
+.activity-item.border-group-VERTIV_COOLING { border-left-color: #92CDDC; }
+.activity-item.border-group-CARRIER { border-left-color: #BFBFBF; }
+.activity-item.border-group-SOTREQ { border-left-color: #C1B991; }
+.activity-item.border-group-ENERG { border-left-color: #E6B8B7; }
+.activity-item.border-group-COTEPE { border-left-color: #DEC97C; }
+
+/* C. Fallback: Cores de Periodicidade (Fundo da Tag e Borda Genérica) */
+.p-B2B_HUAWEI, .activity-item.border-p-B2B_HUAWEI { 
+    background-color: #bfbfbf; 
+    border-left-color: #bfbfbf;
+} 
+.p-FREEZING, .activity-item.border-p-FREEZING { 
+    background-color: #fec0fe; 
+    border-left-color: #fec0fe;
+}
+.p-MENSAL, .activity-item.border-p-MENSAL { 
+    background-color: #da9694; 
+    border-left-color: #da9694;
+}
+.p-BIMESTRAL, .activity-item.border-p-BIMESTRAL { 
+    background-color: #e26b0a; 
+    border-left-color: #e26b0a;
+}
+.p-TRIMESTRAL, .activity-item.border-p-TRIMESTRAL { 
+    background-color: #ffff00; 
+    border-left-color: #ffff00;
+}
+.p-QUADRIMESTRAL, .activity-item.border-p-QUADRIMESTRAL { 
+    background-color: #95b3d7; 
+    border-left-color: #95b3d7;
+}
+.p-SEMESTRAL, .activity-item.border-p-SEMESTRAL { 
+    background-color: #00b050; 
+    border-left-color: #00b050;
+}
 .p-ANUAL {
     background-color: #ff0000;
     color: white;
 }
-
-/* Nota: Para as atividades específicas (Engemon, Vertiv, etc.) que usam o border-group, 
-    a cor da tag (fundo do texto MENSAL/ANUAL) continua sendo a cor da periodicidade.
-    A cor da borda é quem faz a distinção.
-*/
-
-.pdf-clickable {
-    cursor: pointer;
-    width: 35px;
+.activity-item.border-p-ANUAL {
+    border-left-color: #ff0000;
 }
 
 
 /* ========================================================== */
-/* --- 10. RESPONSIVIDADE --- */
+/* --- 8. RESPONSIVIDADE --- */
 /* ========================================================== */
 
 @media (max-width: 768px) {
@@ -343,6 +368,12 @@ main {
         max-height: 90vh;
         overflow-y: auto;
         padding: 15px;
+    }
+    
+    /* Novo ajuste para mobile: garante que o título e PDF se alinhem */
+    .modal-header-controls {
+        flex-direction: row; 
+        align-items: flex-start;
     }
 
     .activity-item h4 {

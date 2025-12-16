@@ -7,34 +7,24 @@
 
     <title>Agenda de Serviços 2026 - Empresas</title>
 
-    <!-- CSS PRINCIPAL -->
-    <link rel="stylesheet" href="css/style.css">
-
-    <!-- FONTE -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <!-- ================================================== -->
-    <!-- HEADER -->
-    <!-- ================================================== -->
     <header>
         <h1>🗓️ DCT Vendors 2026</h1>
     </header>
 
-    <!-- ================================================== -->
-    <!-- CONTEÚDO PRINCIPAL -->
-    <!-- ================================================== -->
     <main>
 
-        <!-- CONTROLES DO CALENDÁRIO -->
         <div class="calendar-controls">
             <button id="prev-month">&lt; Anterior</button>
             <h2 id="current-month-year">Janeiro</h2>
             <button id="next-month">Próximo &gt;</button>
         </div>
 
-        <!-- CALENDÁRIO -->
         <div id="calendar-container">
             <div class="weekdays">
                 <span>Dom</span>
@@ -49,43 +39,36 @@
             <div id="days-grid" class="days-grid"></div>
         </div>
 
-        <!-- ================================================== -->
-        <!-- MODAL -->
-        <!-- ================================================== -->
         <div id="activity-modal" class="modal">
             <div class="modal-content">
 
                 <span class="close-btn" id="close-modal">&times;</span>
 
-                <!-- DATA -->
-                <h3>
-                    Detalhes do Dia:
-                    <span id="modal-date-display"></span>
-                </h3>
+                <div class="modal-header-controls">
+                    
+                    <h3>
+                        Detalhes do Dia:
+                        <span id="modal-date-display"></span>
+                    </h3>
+                    
+                    <img src="img/ico-dowload.gif" id="export-pdf" class="pdf-clickable" alt="Exportar atividades do dia para PDF" title="Exportar PDF" style="display: none;"/>
 
-                <!-- EQUIPE DE PLANTÃO -->
+                </div>
+                
                 <div id="modal-team-info"></div>
 
-                <!-- CONTEÚDO EXPORTÁVEL -->
                 <div id="activities-list">
                     <p class="no-activity">Nenhuma atividade agendada neste dia.</p>
                 </div>
-
-                <!-- BOTÃO EXPORTAR PDF -->
-                <img src="img/ico-dowload.gif" id="export-pdf" class="pdf-clickable" alt="Exportar atividades do dia para PDF" title="Exportar PDF"/>
 
             </div>
         </div>
 
     </main>
 
-    <!-- ================================================== -->
-    <!-- BIBLIOTECAS PDF -->
-    <!-- ================================================== -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-    <!-- JS PRINCIPAL -->
     <script src="js/script1.js"></script>
 
 </body>
