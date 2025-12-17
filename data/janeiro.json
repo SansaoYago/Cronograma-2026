@@ -288,5 +288,180 @@
                 "service_type": "engemon-incendio"
             }
         ]
+    },
+    {
+        "data": "2026-01-15",
+        "on_call_dia": "Equipe C",
+        "on_call_noite": "Equipe D",
+        "freezing": [],
+        "vendors": [
+            {
+                "company": "VERTIV",
+                "description": "BATERIAS",
+                "periodicity": "TRIMESTRAL",
+                "company_group": "VERTIV_POWER",
+                "service_type": ""
+            },
+            {
+                "company": "Engemon",
+                "description": "(08:00 - 18:00) SISTEMA DE AUTOMAÇÃO",
+                "periodicity": "MENSAL",
+                "company_group": "ENGEMON",
+                "service_type": "engemon-automacao"
+            }
+        ]
+    },
+    {
+        "data": "2026-01-16",
+        "on_call_dia": "Equipe A",
+        "on_call_noite": "Equipe B",
+        "freezing": [],
+        "vendors": [
+            {
+                "company": "VERTIV",
+                "description": "BATERIAS",
+                "periodicity": "TRIMESTRAL",
+                "company_group": "VERTIV_POWER",
+                "service_type": ""
+            },
+            {
+                "company": "Engemon",
+                "description": "(08:00 - 18:00) SISTEMA DE AUTOMAÇÃO",
+                "periodicity": "MENSAL",
+                "company_group": "ENGEMON",
+                "service_type": "engemon-automacao"
+            }
+        ]
+    },
+    {
+        "data": "2026-01-17",
+        "on_call_dia": "Equipe C",
+        "on_call_noite": "Equipe D",
+        "freezing": [],
+        "vendors": []
+    },
+    {
+        "data": "2026-01-18",
+        "on_call_dia": "Equipe A",
+        "on_call_noite": "Equipe B",
+        "freezing": [],
+        "vendors": []
+    },
+    {
+        "data": "2026-01-19",
+        "on_call_dia": "Equipe C",
+        "on_call_noite": "Equipe D",
+        "freezing": [],
+        "vendors": [
+            {
+                "company": "ENERG",
+                "description": "SISTEMA DIESEL",
+                "periodicity": "BIMESTRAL",
+                "company_group": "ENERG",
+                "service_type": ""
+            },
+            {
+                "company": "Engemon",
+                "description": "(08:00 - 18:00) SISTEMA DE INCÊNDIO - TESTE DE DISPARO",
+                "periodicity": "MENSAL",
+                "company_group": "ENGEMON",
+                "service_type": "engemon-incendio"
+            }
+        ]
+    },
+    {
+        "data": "2026-01-20",
+        "on_call_dia": "Equipe A",
+        "on_call_noite": "Equipe B",
+        "freezing": [],
+        "vendors": [
+            {
+                "company": "ENERG",
+                "description": "SISTEMA DIESEL",
+                "periodicity": "BIMESTRAL",
+                "company_group": "ENERG",
+                "service_type": ""
+            },
+            {
+                "company": "Engemon",
+                "description": "(08:00 - 18:00) SISTEMA DE INCÊNDIO - TESTE DE DISPARO",
+                "periodicity": "MENSAL",
+                "company_group": "ENGEMON",
+                "service_type": "engemon-incendio"
+            }
+        ]
+    },
+    {
+        "data": "2026-01-21",
+        "on_call_dia": "Equipe C",
+        "on_call_noite": "Equipe D",
+        "freezing": [],
+        "vendors": [
+            {
+                "company": "ENERG",
+                "description": "SISTEMA DIESEL",
+                "periodicity": "BIMESTRAL",
+                "company_group": "ENERG",
+                "service_type": ""
+            },
+            {
+                "company": "Engemon",
+                "description": "(08:00 - 18:00) SISTEMA DE INCÊNDIO - TESTE DE DISPARO",
+                "periodicity": "MENSAL",
+                "company_group": "ENGEMON",
+                "service_type": "engemon-incendio"
+            }
+        ]
+    },
+    {
+        "data": "2026-01-22",
+        "on_call_dia": "Equipe A",
+        "on_call_noite": "Equipe B",
+        "freezing": [],
+        "vendors": [
+            {
+                "company": "ENERG",
+                "description": "SISTEMA DIESEL",
+                "periodicity": "BIMESTRAL",
+                "company_group": "ENERG",
+                "service_type": ""
+            },
+            {
+                "company": "Engemon",
+                "description": "(08:00 - 18:00) SISTEMA DE AUTOMAÇÃO",
+                "periodicity": "MENSAL",
+                "company_group": "ENGEMON",
+                "service_type": "engemon-automacao"
+            }
+        ]
+    },
+    {
+        "data": "2026-01-23",
+        "on_call_dia": "Equipe C",
+        "on_call_noite": "Equipe D",
+        "freezing": [],
+        "vendors": [
+            {
+                "company": "ENERG",
+                "description": "SISTEMA DIESEL",
+                "periodicity": "BIMESTRAL",
+                "company_group": "ENERG",
+                "service_type": ""
+            },
+            {
+                "company": "SOTREQ",
+                "description": "(08:00 - 18:00) SUBESTAÇÃO + TRANSFORMADORES INSPEÇÃO SENSITIVA",
+                "periodicity": "BIMESTRAL",
+                "company_group": "SOTREQ",
+                "service_type": ""
+            },
+            {
+                "company": "Engemon",
+                "description": "(08:00 - 18:00) SISTEMA DE AUTOMAÇÃO",
+                "periodicity": "MENSAL",
+                "company_group": "ENGEMON",
+                "service_type": "engemon-automacao"
+            }
+        ]
     }
 ]
