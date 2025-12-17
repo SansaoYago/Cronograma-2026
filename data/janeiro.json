@@ -1,13 +1,146 @@
 [
     {
         "data": "2026-01-01",
-        "on_call_dia": "Equipe A",
-        "on_call_noite": "Equipe B",
-        "freezing": "",
+        "on_call_dia": "Equipe C",
+        "on_call_noite": "Equipe D",
+        "freezing": [
+            {
+                "group": "TBRA_FREEZING",
+                "description": "FREEZING FIM DE ANO"
+            },
+            {
+                "group": "B2B_HUAWEI_FREEZING",
+                "description": "FREEZING HUAWEI"
+            }
+        ],
         "vendors": [
             {
                 "company": "Engemon",
-                "description": "(08:00 - 18:00) SISTEMA DE INCÊNDIO",
+                "description": "(08:00 - 18:00) SISTEMA DE INCÊNDIO - TESTE DE DISPARO",
+                "periodicity": "MENSAL",
+                "company_group": "ENGEMON",
+                "service_type": "engemon-incendio"
+            }
+        ]
+    },
+
+    {
+        "data": "2026-01-02",
+        "on_call_dia": "Equipe A",
+        "on_call_noite": "Equipe B",
+        "freezing": [
+            {
+                "group": "TBRA_FREEZING",
+                "description": "FREEZING FIM DE ANO"
+            },
+            {
+                "group": "B2B_HUAWEI_FREEZING",
+                "description": "FREEZING HUAWEI"
+            }
+        ],
+        "vendors": [
+            {
+                "company": "Engemon",
+                "description": "SISTEMA DE AUTOMAÇÃO",
+                "periodicity": "MENSAL",
+                "company_group": "ENGEMON",
+                "service_type": "engemon-automacao"
+            }
+        ]
+    },
+
+    {
+        "data": "2026-01-03",
+        "on_call_dia": "Equipe C",
+        "on_call_noite": "Equipe D",
+        "freezing": [
+            {
+                "group": "TBRA_FREEZING",
+                "description": "FREEZING FIM DE ANO"
+            },
+            {
+                "group": "B2B_HUAWEI_FREEZING",
+                "description": "FREEZING HUAWEI"
+            }
+        ],
+        "vendors": []
+    },
+
+    {
+        "data": "2026-01-04",
+        "on_call_dia": "Equipe A",
+        "on_call_noite": "Equipe B",
+        "freezing": [
+            {
+                "group": "TBRA_FREEZING",
+                "description": "FREEZING FIM DE ANO"
+            }
+        ],
+        "vendors": []
+    },
+
+    {
+        "data": "2026-01-05",
+        "on_call_dia": "Equipe C",
+        "on_call_noite": "Equipe D",
+        "freezing": [],
+        "vendors": [
+            {
+                "company": "VERTIV",
+                "description": "SISTEMA DE AUTOMAÇÃO",
+                "periodicity": "TRIMESTRAL",
+                "company_group": "VERTIV_POWER",
+                "service_type": ""
+            },
+            {
+                "company": "Engemon",
+                "description": "(08:00 - 18:00) SISTEMA DE INCÊNDIO - TESTE DE DISPARO",
+                "periodicity": "MENSAL",
+                "company_group": "ENGEMON",
+                "service_type": "engemon-incendio"
+            }
+        ]
+    },
+
+    {
+        "data": "2026-01-06",
+        "on_call_dia": "Equipe A",
+        "on_call_noite": "Equipe B",
+        "freezing": [],
+        "vendors": [
+            {
+                "company": "VERTIV",
+                "description": "SISTEMA DE AUTOMAÇÃO",
+                "periodicity": "TRIMESTRAL",
+                "company_group": "VERTIV_POWER",
+                "service_type": ""
+            },
+            {
+                "company": "Engemon",
+                "description": "(08:00 - 18:00) SISTEMA DE INCÊNDIO - TESTE DE DISPARO",
+                "periodicity": "MENSAL",
+                "company_group": "ENGEMON",
+                "service_type": "engemon-incendio"
+            }
+        ]
+    },
+
+    {
+        "data": "2026-01-07",
+        "on_call_dia": "Equipe C",
+        "on_call_noite": "Equipe D",
+        "freezing": [],
+        "vendors": [
+            {
+                "company": "VERTIV",
+                "description": "SISTEMA DE AUTOMAÇÃO",
+                "periodicity": "TRIMESTRAL",
+                "company_group": "VERTIV_POWER",
+                "service_type": ""
+            },
+            {
+                "company": "Engemon",
+                "description": "(08:00 - 18:00) SISTEMA DE INCÊNDIO - TESTE DE DISPARO",
                 "periodicity": "MENSAL",
                 "company_group": "ENGEMON",
                 "service_type": "engemon-incendio"
@@ -15,4 +148,3 @@
         ]
     }
 ]
-

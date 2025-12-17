@@ -1,0 +1,34 @@
+[
+    {
+        "date": "2026-01-01",
+        "description": "FERIADO - Ano Novo"
+    },
+    {
+        "date": "2026-04-21",
+        "description": "FERIADO - Tiradentes"
+    },
+    {
+        "date": "2026-05-01",
+        "description": "FERIADO - Dia do Trabalho"
+    },
+    {
+        "date": "2026-09-07",
+        "description": "FERIADO - Independência do Brasil"
+    },
+    {
+        "date": "2026-10-12",
+        "description": "FERIADO - Nossa Senhora Aparecida"
+    },
+    {
+        "date": "2026-11-02",
+        "description": "FERIADO - Finados"
+    },
+    {
+        "date": "2026-11-15",
+        "description": "FERIADO - Proclamação da República"
+    },
+    {
+        "date": "2026-12-25",
+        "description": "FERIADO - Natal"
+    }
+]
