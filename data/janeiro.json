@@ -449,10 +449,10 @@
                 "service_type": ""
             },
             {
-                "company": "SOTREQ",
-                "description": "(08:00 - 18:00) SUBESTAÇÃO + TRANSFORMADORES INSPEÇÃO SENSITIVA",
-                "periodicity": "BIMESTRAL",
-                "company_group": "SOTREQ",
+                "company": "COTEPE",
+                "description": "SUBESTAÇÃO",
+                "periodicity": "MENSAL",
+                "company_group": "COTEPE",
                 "service_type": ""
             },
             {
