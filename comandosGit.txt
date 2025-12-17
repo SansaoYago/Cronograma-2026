@@ -1,0 +1,35 @@
+O Ciclo Básico no Terminal
+Sempre que você alterar um arquivo, o processo será este "mantra":
+
+1. git status: Veja o que mudou (sempre comece por aqui).
+
+2. git add .: Prepare as malas (estágio de staging).
+
+3. git commit -m "sua mensagem": Feche as malas com um rótulo.
+
+4. git push: Envie para o GitHub.
+
+Comandos de Branch (O que você aprendeu hoje)
+Como agora você tem a main e a develop, esses comandos serão seus melhores amigos:
+
+1. git branch: Lista as branches (a que tiver um * é onde você está).
+
+2. git checkout develop: Entra na branch de laboratório.
+
+3. git checkout main: Volta para a branch oficial.
+
+4. git checkout -b nova-funcionalidade: Cria uma branch nova e já entra nela.
+
+Dica de Ouro: Atalhos do VS Code
+Para facilitar sua vida no terminal do VS Code:
+
+1. Seta para Cima (↑): Recupera os últimos comandos que você digitou (economiza muito tempo!).
+
+2. Tab: Auto-completa nomes de arquivos ou comandos.
+
+3. clear: Limpa a tela do terminal quando ela estiver muito poluída.
+
+Próximo passo no seu aprendizado:
+Agora que você está usando o terminal, em breve você precisará aprender o Merge (quando você termina um teste na develop e quer levar para o site oficial na main).
+
+Quer que eu te mostre agora como fazer esse "transplante" de código de uma branch para a outra usando apenas comandos? Seria o fechamento perfeito para o seu aprendizado de hoje!
